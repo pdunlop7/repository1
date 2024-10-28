@@ -1,0 +1,230 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "autosize": "pad",
+  "background": "white",
+  "padding": {"left": 10, "right": 10, "top": 10, "bottom": 10},
+  "signals": [
+    {"name": "y_step", "value": 33},
+    {"name": "x_step", "value": 26},
+    {"name": "days", "update": "data('days')[0]['days']"},
+    {"name": "yPaddingInner", "value": 0.45},
+    {"name": "yPaddingOuter", "value": 0.2},
+    {"name": "DescriptionColumn", "value": 130},
+    {"name": "OAMP Accepts Package DateColumn", "value": 45},
+    {"name": "Proposed Award DateColumn", "value": 45},
+    {"name": "daysColumn", "value": 35},
+    {"name": "progressColumn", "value": 55},
+    {"name": "columnPadding", "value": 15},
+    {
+      "name": "height",
+      "update": "bandspace(domain('y').length, yPaddingInner, yPaddingOuter) * y_step"
+    },
+    {"name": "ganttWidth", "update": "days * x_step"},
+    {"name": "width", "update": "100"},
+    {"name": "length", "update": "span(domain('xDays'))"},
+    {"name": "today", "update": "datetime(now())"},
+    {"name": "todayRule", "update": "timeFormat(today,'%d/%m/%y')"}
+  ],
+  "data": [
+    {
+      "name": "input",
+      "values": [
+        {
+          "id": 1,
+          "Description": "Requirements gathering",
+          "OAMP Accepts Package Date": "01/03/2023",
+          "Proposed Award Date": "03/03/2023",
+          "Progress (Number)": 50
+        },
+        {
+          "id": 2,
+          "Description": "Stakeholder workshop",
+          "OAMP Accepts Package Date": "05/03/2023",
+          "Proposed Award Date": "06/03/2023",
+          "Progress (Number)": 75
+        },
+        {
+          "id": 3,
+          "Description": "Story boarding",
+          "OAMP Accepts Package Date": "05/03/2023",
+          "Proposed Award Date": "12/03/2023",
+          "Progress (Number)": 80
+        },
+        {
+          "id": 4,
+          "Description": "Initiation complete",
+          "OAMP Accepts Package Date": "13/03/2023",
+          "Proposed Award Date": "13/03/2023",
+          "Progress (Number)": 100
+        },
+        {
+          "id": 5,
+          "Description": "E2E data solution design",
+          "OAMP Accepts Package Date": "07/03/2023",
+          "Proposed Award Date": "15/03/2023",
+          "Progress (Number)": 35
+        }
+      ],
+      "format": {
+        "parse": {"OAMP Accepts Package Date": "date:'%d/%m/%Y'", "Proposed Award Date": "date:'%d/%m/%Y'"}
+      },
+      "transform": [
+        {
+          "type": "formula",
+          "as": "encodedOAMP Accepts Package Date",
+          "expr": "timeFormat(datum.OAMP Accepts Package Date,'%d/%m/%y')"
+        },
+        {
+          "type": "formula",
+          "as": "updatedProposed Award Date",
+          "expr": "datetime(toNumber(datum.Proposed Award Date)+(1000*60*60*24))"
+        },
+        {
+          "type": "formula",
+          "as": "encodedProposed Award Date",
+          "expr": "timeFormat(datum.updatedProposed Award Date,'%d/%m/%y')"
+        },
+        {
+          "type": "formula",
+          "as": "days",
+          "expr": "round((datum.updatedProposed Award Date-datum.OAMP Accepts Package Date)/1000/60/60/24)"
+        },
+        {
+          "type": "formula",
+          "as": "Progress (Number)Label",
+          "expr": "datum.Progress (Number)+'%'"
+        },
+        {
+          "type": "window",
+          "sort": {"field": "OAMP Accepts Package Date", "order": "ascending"},
+          "ops": ["rank"],
+          "as": ["DescriptionSort"]
+        }
+      ]
+    },
+    {
+      "name": "days",
+      "source": "input",
+      "transform": [
+        {
+          "type": "aggregate",
+          "fields": ["OAMP Accepts Package Date", "Proposed Award Date"],
+          "ops": ["min", "max"],
+          "as": ["s", "e"]
+        },
+        {
+          "type": "formula",
+          "as": "days",
+          "expr": "round((datum.e-datum.s)/1000/60/60/24)"
+        }
+      ]
+    }
+  ],
+  "layout": {
+    "padding": {"signal": "columnPadding"},
+    "bounds": "flush",
+    "align": "none"
+  },
+  "marks": [
+    {
+      "type": "group",
+      "name": "DescriptionColumn",
+      "style": "cell",
+      "title": {
+        "text": "Description",
+        "align": "left",
+        "color": "#666666"
+      },
+      "encode": {
+        "update": {
+          "width": {"signal": "DescriptionColumn"},
+          "height": {"signal": "height"}
+        }
+      },
+      "marks": [
+        {
+          "type": "text",
+          "style": "col",
+          "from": {"data": "input"},
+          "encode": {
+            "update": {
+              "align": {"value": "left"},
+              "fill": {"value": "#666666"},
+              "dx": {"value": "0"},
+              "y": {"signal": "scale('y',datum.Description)+bandwidth('y')/2"},
+              "text": {"field": "Description"},
+              "baseline": {"value": "middle"},
+              "limit": {"signal": "DescriptionColumn"}
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "Progress (Number)Column",
+      "style": "cell",
+      "title": {
+        "text": "Progress",
+        "color": "#666666"
+      },
+      "encode": {
+        "update": {
+          "width": {"signal": "progressColumn"},
+          "height": {"signal": "height"}
+        }
+      },
+      "marks": [
+        {
+          "type": "rect",
+          "from": {"data": "input"},
+          "encode": {
+            "update": {
+              "x": {"signal": "0"},
+              "width": {
+                "signal": "(item.mark.group.width/100)*datum.Progress (Number)"
+              },
+              "fill": {"value": "#c6ecb5"},
+              "y": {"signal": "scale('y',datum.Description)+bandwidth('y')/2"},
+              "height": {"signal": "bandwidth('y')"}
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "xDays",
+      "type": "band",
+      "domain": {"data": "input", "field": "encodedOAMP Accepts Package Date"},
+      "range": {"signal": "[0,ganttWidth]"}
+    },
+    {
+      "name": "y",
+      "type": "band",
+      "domain": {"data": "input", "field": "Description"},
+      "range": {"step": {"signal": "y_step"}},
+      "paddingInner": {"signal": "yPaddingInner"},
+      "paddingOuter": {"signal": "yPaddingOuter"}
+    }
+  ],
+  "config": {
+    "view": {"stroke": "transparent"},
+    "style": {
+      "col": {"fontSize": 11},
+      "cell": {"strokeWidth": {"signal": "0"}}
+    },
+    "font": "Arial",
+    "text": {"font": "Arial", "fontSize": 10, "fill": "#666666"},
+    "axis": {
+      "labelColor": "#666666",
+      "labelFontSize": 10,
+      "titleFont": "arial",
+      "titleColor": "#252423",
+      "titleFontSize": 16,
+      "titleFontWeight": "normal"
+    },
+    "axisY": {"labelPadding": 10}
+  }
+}
