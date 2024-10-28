@@ -1,0 +1,1265 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "Dataviz by David Bacci: https://www.linkedin.com/in/davbacci/",
+  "autosize": "pad",
+  "background": "white",
+  "padding": {"left": 10, "right": 10, "top": 10, "bottom": 10},
+  "signals": [
+    {"name": "y_step", "value": 33},
+    {"name": "x_step", "value": 26},
+    {"name": "days", "update": "data('days')[0]['days']"},
+    {"name": "yPaddingInner", "value": 0.45},
+    {"name": "yPaddingOuter", "value": 0.2},
+    {"name": "DescriptionColumn", "value": 130},
+    {"name": "OAMP Accepts Package DateColumn", "value": 45},
+    {"name": "Proposed Award DateColumn", "value": 45},
+    {"name": "daysColumn", "value": 35},
+    {"name": "progressColumn", "value": 55},
+    {"name": "columnPadding", "value": 15},
+    {
+      "name": "height",
+      "update": "bandspace(domain('y').length, yPaddingInner, yPaddingOuter) * y_step"
+    },
+    {"name": "ganttWidth", "update": "days * x_step"},
+    {"name": "width", "update": "100"},
+    {"name": "length", "update": "span(domain('xDays'))"},
+    {"name": "today", "update": "datetime(now())"},
+    {"name": "todayRule", "update": "timeFormat(today,'%d/%m/%y')"}
+  ],
+  "data": [
+    {
+      "name": "input",
+      "values": [
+        {
+          "id": 1,
+          "phase": "Initiation",
+          "Description": "Requirements gathering",
+          "milestone": null,
+          "OAMP Accepts Package Date": "01/03/2023",
+          "Proposed Award Date": "03/03/2023",
+          "Progress (Number)": 50,
+          "depProposed Award Dateencies": null
+        },
+        {
+          "id": 2,
+          "phase": "Initiation",
+          "Description": "Stakeholder workshop",
+          "milestone": null,
+          "OAMP Accepts Package Date": "05/03/2023",
+          "Proposed Award Date": "06/03/2023",
+          "Progress (Number)": 75,
+          "depProposed Award Dateencies": null
+        },
+        {
+          "id": 3,
+          "phase": "Initiation",
+          "Description": "Story boarding",
+          "milestone": null,
+          "OAMP Accepts Package Date": "05/03/2023",
+          "Proposed Award Date": "12/03/2023",
+          "Progress (Number)": 80,
+          "depProposed Award Dateencies": "1"
+        },
+        {
+          "id": 4,
+          "phase": "Initiation",
+          "Description": "Initiation complete",
+          "milestone": true,
+          "OAMP Accepts Package Date": "13/03/2023",
+          "Proposed Award Date": "13/03/2023",
+          "Progress (Number)": 100,
+          "depProposed Award Dateencies": 3
+        },
+        {
+          "id": 5,
+          "phase": "Design",
+          "Description": "E2E data solution design",
+          "milestone": null,
+          "OAMP Accepts Package Date": "07/03/2023",
+          "Proposed Award Date": "15/03/2023",
+          "Progress (Number)": 35,
+          "depProposed Award Dateencies": null
+        },
+        {
+          "id": 6,
+          "phase": "Design",
+          "Description": "Wireframes",
+          "milestone": null,
+          "OAMP Accepts Package Date": "12/03/2023",
+          "Proposed Award Date": "16/03/2023",
+          "Progress (Number)": 80,
+          "depProposed Award Dateencies": "5"
+        },
+        {
+          "id": 7,
+          "phase": "Design",
+          "Description": "Prototyping",
+          "milestone": null,
+          "OAMP Accepts Package Date": "13/03/2023",
+          "Proposed Award Date": "22/03/2023",
+          "Progress (Number)": 40,
+          "depProposed Award Dateencies": 6
+        },
+        {
+          "id": 8,
+          "phase": "Design",
+          "Description": "Design complete",
+          "milestone": true,
+          "OAMP Accepts Package Date": "22/03/2023",
+          "Proposed Award Date": "22/03/2023",
+          "Progress (Number)": 0,
+          "depProposed Award Dateencies": 7
+        },
+        {
+          "id": 9,
+          "phase": "Implementation",
+          "Description": "ETL",
+          "milestone": null,
+          "OAMP Accepts Package Date": "09/03/2023",
+          "Proposed Award Date": "19/03/2023",
+          "Progress (Number)": 15,
+          "depProposed Award Dateencies": null
+        },
+        {
+          "id": 10,
+          "phase": "Implementation",
+          "Description": "Data modelling",
+          "milestone": null,
+          "OAMP Accepts Package Date": "15/03/2023",
+          "Proposed Award Date": "21/03/2023",
+          "Progress (Number)": 40,
+          "depProposed Award Dateencies": null
+        },
+        {
+          "id": 11,
+          "phase": "Implementation",
+          "Description": "Measures & KPIs",
+          "milestone": null,
+          "OAMP Accepts Package Date": "15/03/2023",
+          "Proposed Award Date": "17/03/2023",
+          "Progress (Number)": 50,
+          "depProposed Award Dateencies": null
+        },
+        {
+          "id": 12,
+          "phase": "Implementation",
+          "Description": "Dataviz ",
+          "milestone": null,
+          "OAMP Accepts Package Date": "20/03/2023",
+          "Proposed Award Date": "23/03/2023",
+          "Progress (Number)": 15,
+          "depProposed Award Dateencies": 11
+        },
+        {
+          "id": 13,
+          "phase": "Implementation",
+          "Description": "Performance testing",
+          "milestone": null,
+          "OAMP Accepts Package Date": "20/03/2023",
+          "Proposed Award Date": "23/03/2023",
+          "Progress (Number)": 20,
+          "depProposed Award Dateencies": null
+        },
+        {
+          "id": 14,
+          "phase": "Implementation",
+          "Description": "Implementation complete",
+          "milestone": true,
+          "OAMP Accepts Package Date": "24/03/2023",
+          "Proposed Award Date": "24/03/2023",
+          "Progress (Number)": 0,
+          "depProposed Award Dateencies": 13
+        },
+        {
+          "id": 15,
+          "phase": "Deployment",
+          "Description": "User training",
+          "milestone": null,
+          "OAMP Accepts Package Date": "23/03/2023",
+          "Proposed Award Date": "24/03/2023",
+          "Progress (Number)": 65,
+          "depProposed Award Dateencies": null
+        },
+        {
+          "id": 16,
+          "phase": "Deployment",
+          "Description": "Refresh schedule & alerts",
+          "milestone": null,
+          "OAMP Accepts Package Date": "27/03/2023",
+          "Proposed Award Date": "27/03/2023",
+          "Progress (Number)": 50,
+          "depProposed Award Dateencies": 15
+        },
+        {
+          "id": 17,
+          "phase": "Deployment",
+          "Description": "Executive presentation",
+          "milestone": null,
+          "OAMP Accepts Package Date": "28/03/2023",
+          "Proposed Award Date": "31/03/2023",
+          "Progress (Number)": 0,
+          "depProposed Award Dateencies": 16
+        },
+        {
+          "id": 18,
+          "phase": "Deployment",
+          "Description": "Deployment complete",
+          "milestone": true,
+          "OAMP Accepts Package Date": "31/03/2023",
+          "Proposed Award Date": "31/03/2023",
+          "Progress (Number)": 0,
+          "depProposed Award Dateencies": null
+        }
+      ],
+      "format": {
+        "parse": {"OAMP Accepts Package Date": "date:'%d/%m/%Y'", "Proposed Award Date": "date:'%d/%m/%Y'"}
+      },
+      "transform": [
+        {
+          "type": "formula",
+          "as": "encodedOAMP Accepts Package Date",
+          "expr": "timeFormat(datum.OAMP Accepts Package Date,'%d/%m/%y')"
+        },
+        {
+          "type": "formula",
+          "as": "updatedProposed Award Date",
+          "expr": "datetime(toNumber(datum.Proposed Award Date)+(1000*60*60*24))"
+        },
+        {
+          "type": "formula",
+          "as": "encodedProposed Award Date",
+          "expr": "timeFormat(datum.updatedProposed Award Date,'%d/%m/%y')"
+        },
+        {
+          "type": "formula",
+          "as": "days",
+          "expr": "round((datum.updatedProposed Award Date-datum.OAMP Accepts Package Date)/1000/60/60/24)"
+        },
+        {
+          "type": "formula",
+          "as": "Progress (Number)Label",
+          "expr": "datum.Progress (Number)+'%'"
+        },
+        {
+          "type": "window",
+          "sort": {"field": "OAMP Accepts Package Date", "order": "ascProposed Award Dateing"},
+          "ops": ["rank"],
+          "as": ["DescriptionSort"],
+          "groupby": ["phase"]
+        }
+      ]
+    },
+    {
+      "name": "phases",
+      "source": "input",
+      "transform": [
+        {
+          "type": "aggregate",
+          "fields": ["OAMP Accepts Package Date", "Proposed Award Date", "Progress (Number)", "Description", "Progress (Number)"],
+          "ops": ["min", "max", "sum", "count", "mean"],
+          "as": ["OAMP Accepts Package Date", "Proposed Award Date", "sum", "count", "Progress (Number)"],
+          "groupby": ["phase"]
+        },
+        {
+          "type": "lookup",
+          "from": "input",
+          "key": "OAMP Accepts Package Date",
+          "values": ["encodedOAMP Accepts Package Date"],
+          "fields": ["OAMP Accepts Package Date"]
+        },
+        {
+          "type": "lookup",
+          "from": "input",
+          "key": "Proposed Award Date",
+          "values": ["encodedProposed Award Date"],
+          "fields": ["Proposed Award Date"]
+        },
+        {"type": "formula", "as": "Description", "expr": "datum.phase"},
+        {"type": "formula", "as": "DescriptionSort", "expr": "0"},
+        {
+          "type": "formula",
+          "as": "Progress (Number)",
+          "expr": "round(datum.Progress (Number))"
+        },
+        {
+          "type": "formula",
+          "as": "days",
+          "expr": "round((datum.Proposed Award Date-datum.OAMP Accepts Package Date)/1000/60/60/24)+1"
+        },
+        {
+          "type": "window",
+          "sort": {"field": "OAMP Accepts Package Date", "order": "ascProposed Award Dateing"},
+          "ops": ["rank"],
+          "as": ["phaseSort"]
+        }
+      ]
+    },
+    {
+      "name": "Descriptions",
+      "source": "input",
+      "transform": [
+        {"type": "filter", "expr": "datum.milestone != true"},
+        {
+          "type": "lookup",
+          "from": "phases",
+          "key": "phase",
+          "values": ["phaseSort"],
+          "fields": ["phase"]
+        }
+      ]
+    },
+    {
+      "name": "milestones",
+      "source": "input",
+      "transform": [
+        {"type": "filter", "expr": "datum.milestone == true"},
+        {
+          "type": "lookup",
+          "from": "phases",
+          "key": "phase",
+          "values": ["phaseSort"],
+          "fields": ["phase"]
+        }
+      ]
+    },
+    {
+      "name": "y_scale",
+      "source": ["Descriptions", "phases", "milestones"],
+      "transform": [
+        {
+          "type": "window",
+          "sort": {
+            "field": ["phaseSort", "DescriptionSort"],
+            "order": ["ascProposed Award Dateing", "ascProposed Award Dateing"]
+          },
+          "ops": ["row_number"],
+          "as": ["finalSort"]
+        }
+      ]
+    },
+    {
+      "name": "days",
+      "source": "input",
+      "transform": [
+        {
+          "type": "aggregate",
+          "fields": ["OAMP Accepts Package Date", "Proposed Award Date"],
+          "ops": ["min", "max"],
+          "as": ["s", "e"]
+        },
+        {
+          "type": "formula",
+          "as": "days",
+          "expr": "round((datum.e-datum.s)/1000/60/60/24)"
+        }
+      ]
+    },
+    {
+      "name": "dayScale",
+      "transform": [
+        {
+          "type": "sequence",
+          "OAMP Accepts Package Date": -1,
+          "stop": {"signal": "days+8"},
+          "as": "sequence"
+        },
+        {
+          "type": "formula",
+          "as": "date",
+          "expr": "datetime(toNumber(data('days')[0]['s'])+((1000*60*60*24)*datum.sequence))"
+        },
+        {
+          "type": "formula",
+          "as": "encodedDate",
+          "expr": "timeFormat(datum.date,'%d/%m/%y')"
+        }
+      ]
+    },
+    {
+      "name": "weekProposed Award Dates",
+      "source": "dayScale",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "day(datum.date) == 6 || day(datum.date) == 0"
+        }
+      ]
+    },
+    {
+      "name": "depProposed Award DateencyArrows",
+      "source": "input",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "isValid(datum.depProposed Award Dateencies) && datum.depProposed Award Dateencies!='' "
+        }
+      ]
+    },
+    {
+      "name": "depProposed Award DateencyLines",
+      "source": "y_scale",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "isValid(datum.depProposed Award Dateencies) && datum.depProposed Award Dateencies!='' "
+        },
+           {
+          "type": "formula",
+          "expr": "split(datum.depProposed Award Dateencies,',')" ,"as":"depProposed Award Dateencies"
+        },
+             {"type": "flatten", "fields": ["depProposed Award Dateencies"]},
+               {
+          "type": "lookup",
+          "from": "y_scale",
+          "key": "id",
+          "values": ["Description", "finalSort", "encodedProposed Award Date", "OAMP Accepts Package Date", "Proposed Award Date"],
+          "fields": ["depProposed Award Dateencies"],
+          "as": [
+            "sourceDescription",
+            "sourceFinalSort",
+            "sourceEncodedProposed Award Date",
+            "sourceOAMP Accepts Package Date",
+            "sourceProposed Award Date"
+          ]
+        },
+        {
+          "type": "formula",
+          "as": "a",
+          "expr": "[scale('xDays',datum.encodedOAMP Accepts Package Date),scale('y',datum.Description)+bandwidth('y')/2]"
+        },
+        {
+          "type": "formula",
+          "as": "b",
+          "expr": "[datum.OAMP Accepts Package Date > datum.sourceProposed Award Date?scale('xDays',datum.sourceEncodedProposed Award Date) - bandwidth('xDays')/2:scale('xDays',datum.encodedOAMP Accepts Package Date) - bandwidth('xDays')/2,scale('y',datum.Description)+bandwidth('y')/2]"
+        },
+        {
+          "type": "formula",
+          "as": "c",
+          "expr": "[scale('xDays',datum.sourceEncodedProposed Award Date) - bandwidth('xDays')/2,scale('y',datum.sourceDescription)+bandwidth('y')/2]"
+        },
+        {
+          "type": "formula",
+          "as": "d",
+          "expr": "[datum.OAMP Accepts Package Date <= datum.sourceProposed Award Date?scale('xDays',datum.encodedOAMP Accepts Package Date) - bandwidth('xDays')/2:null ,datum.OAMP Accepts Package Date <= datum.sourceProposed Award Date?scale('y',datum.sourceDescription)+(bandwidth('y')*1.5):null]"
+        },
+        {
+          "type": "formula",
+          "as": "e",
+          "expr": "[datum.OAMP Accepts Package Date <= datum.sourceProposed Award Date?scale('xDays',datum.sourceEncodedProposed Award Date) - bandwidth('xDays')/2:null ,datum.OAMP Accepts Package Date <= datum.sourceProposed Award Date?scale('y',datum.sourceDescription)+(bandwidth('y')*1.5):null]"
+        },
+        {"type": "fold", "fields": ["a", "b", "d", "e", "c"]},
+        {"type": "filter", "expr": "datum.value[0] != null"}
+     
+       ]
+    }
+  ],
+  "layout": {
+    "padding": {"signal": "columnPadding"},
+    "bounds": "flush",
+    "align": "none"
+  },
+  "marks": [
+    {
+      "type": "group",
+      "name": "DescriptionColumn",
+      "style": "cell",
+      "title": {
+        "text": "Description",
+        "anchor": "OAMP Accepts Package Date",
+        "frame": "group",
+        "align": "left",
+        "color": "#666666"
+      },
+      "encode": {
+        "update": {
+          "width": {"signal": "DescriptionColumn"},
+          "height": {"signal": "height"}
+        }
+      },
+      "marks": [
+        {
+          "type": "text",
+          "style": "col",
+          "from": {"data": "y_scale"},
+          "encode": {
+            "update": {
+              "align": {"value": "left"},
+              "fill": {
+                "signal": "datum.phase == datum.Description?'#666666':'#666666'"
+              },
+              "dx": {"signal": "datum.phase != datum.Description?'0':'0'"},
+              "y": {"signal": "scale('y',datum.Description)+bandwidth('y')/2"},
+              "text": {
+                "signal": "datum.phase == datum.Description?upper(datum.Description):datum.Description"
+              },
+              "fontWeight": {
+                "signal": "datum.phase == datum.Description?'bold':'normal'"
+              },
+              "baseline": {"value": "middle"},
+              "limit": {"signal": "DescriptionColumn"}
+            }
+          }
+        },
+        {
+          "type": "symbol",
+          "from": {"data": "y_scale"},
+          "encode": {
+            "update": {
+              "fill": {
+                "signal": "datum.phase == datum.Description?scale('cStroke', datum.phase):'transparent'"
+              },
+              "x2": {"signal": "datum.phase != datum.Description?'0':'-10'"},
+              "yc": {"signal": "(scale('y',datum.Description)+bandwidth('y')/2)-1"},
+              "shape": {"value": "square"}
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "OAMP Accepts Package DateColumn",
+      "style": "cell",
+      "title": {
+        "text": "OAMP Accepts Package Date",
+        "anchor": "Proposed Award Date",
+        "frame": "group",
+        "align": "right",
+        "color": "#666666"
+      },
+      "encode": {
+        "update": {
+          "width": {"signal": "OAMP Accepts Package DateColumn"},
+          "height": {"signal": "height"}
+        }
+      },
+      "marks": [
+        {
+          "type": "text",
+          "style": "col",
+          "from": {"data": "y_scale"},
+          "encode": {
+            "update": {
+              "align": {"value": "right"},
+              "x": {"signal": "OAMP Accepts Package DateColumn"},
+              "fill": {
+                "signal": "datum.phase == datum.Description?'#666666':'#666666'"
+              },
+              "y": {"signal": "scale('y',datum.Description)+bandwidth('y')/2"},
+              "text": {"signal": "timeFormat(datum.OAMP Accepts Package Date,' %d/%m/%y')"},
+              "baseline": {"value": "middle"},
+              "fontWeight": {
+                "signal": "datum.phase == datum.Description?'bold':'normal'"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "Proposed Award DateColumn",
+      "style": "cell",
+      "title": {
+        "text": "Proposed Award Date",
+        "anchor": "Proposed Award Date",
+        "frame": "group",
+        "align": "right",
+        "color": "#666666"
+      },
+      "encode": {
+        "update": {
+          "width": {"signal": "Proposed Award DateColumn"},
+          "height": {"signal": "height"}
+        }
+      },
+      "marks": [
+        {
+          "type": "text",
+          "style": "col",
+          "from": {"data": "y_scale"},
+          "encode": {
+            "update": {
+              "align": {"value": "right"},
+              "x": {"signal": "Proposed Award DateColumn"},
+              "fill": {
+                "signal": "datum.phase == datum.Description?'#666666':'#666666'"
+              },
+              "y": {"signal": "scale('y',datum.Description)+bandwidth('y')/2"},
+              "text": {"signal": "timeFormat(datum.Proposed Award Date,' %d/%m/%y')"},
+              "baseline": {"value": "middle"},
+              "fontWeight": {
+                "signal": "datum.phase == datum.Description?'bold':'normal'"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "daysColumn",
+      "style": "cell",
+      "title": {
+        "text": "Days",
+        "anchor": "Proposed Award Date",
+        "frame": "group",
+        "align": "right",
+        "color": "#666666"
+      },
+      "encode": {
+        "update": {
+          "width": {"signal": "daysColumn"},
+          "height": {"signal": "height"}
+        }
+      },
+      "marks": [
+        {
+          "type": "text",
+          "style": "col",
+          "from": {"data": "y_scale"},
+          "encode": {
+            "update": {
+              "align": {"value": "right"},
+              "fill": {
+                "signal": "datum.phase == datum.Description?'#666666':'#666666'"
+              },
+              "x": {"signal": "daysColumn"},
+              "y": {"signal": "scale('y',datum.Description)+bandwidth('y')/2"},
+              "text": {"signal": "datum.days+' d'"},
+              "baseline": {"value": "middle"},
+              "fontWeight": {
+                "signal": "datum.phase == datum.Description?'bold':'normal'"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "Progress (Number)Column",
+      "style": "cell",
+      "title": {
+        "text": "Progress",
+        "anchor": "OAMP Accepts Package Date",
+        "frame": "group",
+        "color": "#666666"
+      },
+      "encode": {
+        "update": {
+          "width": {"signal": "progressColumn"},
+          "height": {"signal": "height"}
+        }
+      },
+      "marks": [
+        {
+          "type": "rect",
+          "from": {"data": "y_scale"},
+          "encode": {
+            "update": {
+              "x": {"signal": "0"},
+              "width": {"signal": "item.mark.group.width"},
+              "stroke": {"signal": "'#a0d786'"},
+              "yc": {"signal": "(scale('y',datum.Description)+bandwidth('y')/2)"},
+              "strokeWidth": {"value": 1},
+              "height": {"signal": "bandwidth('y')"}
+            }
+          }
+        },
+        {
+          "type": "rect",
+          "from": {"data": "y_scale"},
+          "encode": {
+            "update": {
+              "x": {"signal": "0"},
+              "width": {
+                "signal": "(item.mark.group.width/100)*datum.Progress (Number)"
+              },
+              "fill": {"signal": "'#c6ecb5'"},
+              "yc": {"signal": "(scale('y',datum.Description)+bandwidth('y')/2)"},
+              "strokeWidth": {"value": 1},
+              "height": {"signal": "bandwidth('y')"}
+            }
+          }
+        },
+        {
+          "type": "text",
+          "from": {"data": "y_scale"},
+          "encode": {
+            "update": {
+              "align": {"value": "left"},
+              "dx": {"value": 3},
+              "fill": {"signal": "'#666666'"},
+              "y": {"signal": "scale('y',datum.Description)+bandwidth('y')/2"},
+              "text": {"signal": "datum.Progress (Number)+'%'"},
+              "baseline": {"value": "middle"}
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "gantt",
+      "encode": {
+        "update": {
+          "width": {"signal": "ganttWidth"},
+          "height": {"signal": "height"}
+        }
+      },
+      "marks": [
+        {
+          "name": "labelSizes",
+          "clip": true,
+          "type": "text",
+          "from": {"data": "Descriptions"},
+          "encode": {
+            "enter": {
+              "fill": {"value": "transparent"},
+              "text": {"signal": "datum.Progress (Number)Label"},
+              "x": {"value": 0},
+              "y": {"value": 10}
+            }
+          }
+        },
+        {
+          "type": "rect",
+          "description": "WeekProposed Award Date shading",
+          "name": "weekProposed Award DateShading",
+          "from": {"data": "weekProposed Award Dates"},
+          "encode": {
+            "update": {
+              "x": {"field": "encodedDate", "scale": "xDays"},
+              "width": {"signal": "bandwidth('xDays')"},
+              "y": {"value": -15},
+              "height": {"signal": "height+15"},
+              "strokeWidth": {"signal": "1"},
+              "stroke": {"value": "#f1f1f1"},
+              "fill": {"value": "#f1f1f1"}
+            }
+          }
+        },
+        {
+          "type": "group",
+          "from": {
+            "facet": {
+              "name": "depProposed Award DateencyLinesFacet",
+              "data": "depProposed Award DateencyLines",
+              "groupby": ["id","depProposed Award Dateencies"]
+            }
+          },
+          "marks": [
+            {
+              "type": "line",
+              "from": {"data": "depProposed Award DateencyLinesFacet"},
+              "encode": {
+                "enter": {
+                  "x": {"signal": "datum.value[0]"},
+                  "y": {"signal": "datum.value[1]"},
+                  "stroke": {"value": "#888888"},
+                  "strokeWidth": {"value": 1.5},
+                  "interpolate": {"value": "linear"},
+                  "strokeJoin": {"value": "bevel"},
+                  "strokeCap": {"value": "round"},
+                  "strokeDash": {"signal": "0"},
+                  "defined": {"value": true}
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "todayRule",
+          "description": "Today rule",
+          "type": "rule",
+          "data": [{}],
+          "encode": {
+            "update": {
+              "x": {
+                "signal": "scale('xDays',todayRule) + (bandwidth('xDays')/2)"
+              },
+              "y": {"value": 0},
+              "y2": {"signal": "height"},
+              "height": {"signal": "height"},
+              "strokeWidth": {
+                "signal": "indata('dayScale', 'encodedDate', todayRule)? 1:0"
+              },
+              "stroke": {"value": "#377eb9"},
+              "strokeDash": {"value": [2, 2]},
+              "opacity": {"value": 0.8}
+            }
+          }
+        },
+        {
+          "name": "todayText",
+          "description": "Today text",
+          "type": "text",
+          "data": [{}],
+          "encode": {
+            "update": {
+              "x": {
+                "signal": "scale('xDays',todayRule) + (bandwidth('xDays')/2)"
+              },
+              "y": {"value": 0},
+              "fill": {"value": "#377eb9"},
+              "text": {
+                "signal": "indata('dayScale', 'encodedDate', todayRule)? 'Today':''"
+              },
+              "angle": {"signal": "90"},
+              "baseline": {"value": "bottom"},
+              "dx": {"value": 10},
+              "dy": {"value": -4},
+              "opacity": {"value": 1},
+              "font": {"value": ""}
+            }
+          }
+        },
+        {
+          "name": "todayHighlight",
+          "description": "Today highlight",
+          "type": "rect",
+          "data": [{}],
+          "encode": {
+            "update": {
+              "cornerRadius": {"value": 0},
+              "x": {"signal": "scale('xDays',todayRule) "},
+              "width": {"signal": "bandwidth('xDays')"},
+              "y": {"value": -15},
+              "height": {"signal": "15"},
+              "fill": {"value": "#a5c8e4"},
+              "opacity": {
+                "signal": "indata('dayScale', 'encodedDate', todayRule)? 1:0"
+              }
+            }
+          }
+        },
+        {
+          "name": "DescriptionBars",
+          "description": "The Description bars (serve as an outline for percent complete)",
+          "type": "group",
+          "clip": false,
+          "from": {"data": "Descriptions"},
+          "encode": {
+            "update": {
+              "x": {"scale": "xDays", "field": "encodedOAMP Accepts Package Date"},
+              "x2": {"scale": "xDays", "field": "encodedProposed Award Date"},
+              "y": {"scale": "y", "field": "Description"},
+              "height": {"signal": "bandwidth('y')"},
+              "tooltip": {
+                "signal": "{'Phase':datum.phase ,'Description':datum.Description , 'OAMP Accepts Package Date':timeFormat(datum.OAMP Accepts Package Date,'%a, %d %B %Y' ),'Proposed Award Date':timeFormat(datum.Proposed Award Date,'%a, %d %B %Y' ), 'Days':datum.days,'Progress':datum.Progress (Number)Label }"
+              },
+              "fill": {"field": "phase", "scale": "cFill"},
+              "stroke": {"field": "phase", "scale": "cStroke"},
+              "strokeWidth": {"value": 1},
+              "cornerRadius": {"value": 5},
+              "zindex": {"value": 2}
+            }
+          },
+          "transform": [
+            {
+              "type": "lookup",
+              "from": "labelSizes",
+              "key": "text",
+              "fields": ["datum.Progress (Number)Label"],
+              "values": ["bounds.x1", "bounds.x2"],
+              "as": ["a", "b"]
+            }
+          ],
+          "marks": [
+            {
+              "name": "fills",
+              "description": "Percent complete for each Description",
+              "type": "rect",
+              "clip": true,
+              "encode": {
+                "update": {
+                  "x": {"signal": "item.mark.group.x1"},
+                  "y": {"signal": "item.mark.group.y1"},
+                  "height": {"signal": "item.mark.group.height"},
+                  "width": {
+                    "signal": "(item.mark.group.width/100)* item.mark.group.datum.Progress (Number)"
+                  },
+                  "fill": {
+                    "signal": "item.mark.group.datum.phase",
+                    "scale": "cStroke"
+                  },
+                  "stroke": {
+                    "signal": "item.mark.group.datum.phase",
+                    "scale": "cStroke"
+                  },
+                  "strokeWidth": {"value": 2},
+                  "cornerRadiusBottomLeft": {"value": 5},
+                  "cornerRadiusTopLeft": {"value": 5},
+                  "tooltip": {
+                    "signal": "{'Phase':parent.phase ,'Description':parent.Description , 'OAMP Accepts Package Date':timeFormat(parent.OAMP Accepts Package Date,'%a, %d %B %Y' ),'Proposed Award Date':timeFormat(parent.Proposed Award Date,'%a, %d %B %Y' ), 'Days':parent.days,'Progress':parent.Progress (Number)Label }"
+                  }
+                }
+              }
+            },
+            {
+              "name": "completeText",
+              "description": "Progress (Number) Text",
+              "type": "text",
+              "encode": {
+                "update": {
+                  "x": {
+                    "signal": "(item.mark.group.width/100)* parent.Progress (Number)"
+                  },
+                  "align": {"signal": "'right'"},
+                  "dx": {"signal": "-2"},
+                  "y": {"signal": "item.mark.group.height-bandwidth('y')/2+1"},
+                  "baseline": {"value": "middle"},
+                  "text": {
+                    "signal": "((item.mark.group.width/100)* parent.Progress (Number))>item.mark.group.b && parent.Progress (Number)>0?parent.Progress (Number)Label:''"
+                  },
+                  "fill": {"value": "white"}
+                }
+              }
+            },
+            {
+              "name": "DescriptionName",
+              "description": "Description name",
+              "type": "text",
+              "encode": {
+                "update": {
+                  "x": {"signal": "item.mark.group.width"},
+                  "align": {"signal": "'left'"},
+                  "dx": {"signal": "5"},
+                  "y": {"signal": "item.mark.group.height-bandwidth('y')/2+1"},
+                  "baseline": {"value": "middle"},
+                  "text": {
+                    "signal": "parent.Description + ' ('+ parent.days+' d'+')'"
+                  },
+                  "fill": {"value": "#666666"}
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "phaseBars",
+          "description": "The phase bars (serve as an outline for percent complete)",
+          "type": "group",
+          "clip": false,
+          "from": {"data": "phases"},
+          "encode": {
+            "update": {
+              "x": {"scale": "xDays", "field": "encodedOAMP Accepts Package Date"},
+              "x2": {"scale": "xDays", "field": "encodedProposed Award Date"},
+              "y": {"signal": "scale('y', datum.phase)+bandwidth('y')/4"},
+              "height": {"signal": "bandwidth('y')/2"},
+              "tooltip": {
+                "signal": "{'Phase':datum.phase ,'Description':datum.Description , 'OAMP Accepts Package Date':timeFormat(datum.OAMP Accepts Package Date,'%a, %d %B %Y' ),'Proposed Award Date':timeFormat(datum.Proposed Award Date,'%a, %d %B %Y' ), 'Days':datum.days,'Progress':datum.Progress (Number)+'%' }"
+              },
+              "fill": {"field": "phase", "scale": "cFill"},
+              "stroke": {"field": "phase", "scale": "cStroke"},
+              "strokeWidth": {"value": 1},
+              "zindex": {"value": 2}
+            }
+          },
+          "marks": [
+            {
+              "name": "fills",
+              "description": "Percent complete for each phase",
+              "type": "rect",
+              "clip": true,
+              "encode": {
+                "update": {
+                  "x": {"signal": "item.mark.group.x1"},
+                  "y": {"signal": "item.mark.group.y1"},
+                  "height": {"signal": "item.mark.group.height"},
+                  "width": {
+                    "signal": "(item.mark.group.width/100)* item.mark.group.datum.Progress (Number)"
+                  },
+                  "fill": {
+                    "signal": "item.mark.group.datum.phase",
+                    "scale": "cStroke"
+                  },
+                  "stroke": {
+                    "signal": "item.mark.group.datum.phase",
+                    "scale": "cStroke"
+                  },
+                  "strokeWidth": {"value": 2},
+                  "tooltip": {
+                    "signal": "{'Phase':parent.phase ,'Description':parent.Description , 'OAMP Accepts Package Date':timeFormat(parent.OAMP Accepts Package Date,'%a, %d %B %Y' ),'Proposed Award Date':timeFormat(parent.Proposed Award Date,'%a, %d %B %Y' ), 'Days':parent.days,'Progress':parent.Progress (Number)+'%' }"
+                  }
+                }
+              }
+            },
+            {
+              "type": "path",
+              "name": "phaseOAMP Accepts Package Date",
+              "description": "Phase OAMP Accepts Package Date",
+              "encode": {
+                "update": {
+                  "x": {"signal": "item.mark.group.x1"},
+                  "y": {"signal": "item.mark.group.height"},
+                  "strokeWidth": {"value": 0},
+                  "scaleX": {"signal": "item.mark.group.height/60"},
+                  "scaleY": {"signal": "item.mark.group.height/60"},
+                  "path": {
+                    "value": "M 0,0 C 0,20 0,40 0,60 20,40 40,20 60,0 40,0 20,0 0,0 Z"
+                  },
+                  "angle": {"value": 0},
+                  "fill": {
+                    "signal": "item.mark.group.datum.phase",
+                    "scale": "cStroke"
+                  },
+                  "stroke": {
+                    "signal": "item.mark.group.datum.phase",
+                    "scale": "cStroke"
+                  },
+                  "tooltip": {"signal": "item.mark.group.datum"}
+                }
+              }
+            },
+            {
+              "type": "path",
+              "name": "phaseProposed Award Date",
+              "description": "Phase Proposed Award Date ",
+              "encode": {
+                "update": {
+                  "x": {
+                    "signal": "item.mark.group.width-(item.mark.group.height)+1"
+                  },
+                  "y": {"signal": "item.mark.group.height"},
+                  "strokeWidth": {"value": 0},
+                  "scaleX": {"signal": "item.mark.group.height/60"},
+                  "scaleY": {"signal": "item.mark.group.height/60"},
+                  "path": {
+                    "value": "m 60,0 c 0,20 0,40 0,60 C 40,40 20,20 0,0 20,0 40,0 60,0 Z"
+                  },
+                  "angle": {"value": 0},
+                  "fill": {
+                    "signal": "item.mark.group.datum.phase",
+                    "scale": "cStroke"
+                  },
+                  "stroke": {
+                    "signal": "item.mark.group.datum.phase",
+                    "scale": "cStroke"
+                  },
+                  "tooltip": {"signal": "item.mark.group.datum"}
+                }
+              }
+            },
+            {
+              "name": "DescriptionName",
+              "description": "Description name",
+              "type": "text",
+              "encode": {
+                "update": {
+                  "x": {"signal": "item.mark.group.width"},
+                  "align": {"signal": "'left'"},
+                  "dx": {"signal": "5"},
+                  "y": {"signal": "item.mark.group.height-bandwidth('y')/4+1"},
+                  "baseline": {"value": "middle"},
+                  "text": {
+                    "signal": "item.mark.group.datum.Description + ' ('+ item.mark.group.datum.days+' d'+')'"
+                  },
+                  "fill": {"value": "#666666"}
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "milestoneSymbols",
+          "description": "Milestones",
+          "type": "symbol",
+          "from": {"data": "milestones"},
+          "encode": {
+            "update": {
+              "x": {
+                "signal": "scale('xDays',datum.encodedOAMP Accepts Package Date)+bandwidth('xDays')/2"
+              },
+              "y": {"signal": "scale('y',datum.Description)+bandwidth('y')/2"},
+              "size": {"signal": "pow( min(y_step,x_step),1.85)"},
+              "shape": {"value": "diamond"},
+              "fill": {
+                "signal": "datum.Progress (Number) > 0? scale('cStroke', datum.phase):scale('cFill', datum.phase)"
+              },
+              "stroke": {"field": "phase", "scale": "cStroke"},
+              "strokeWidth": {"value": 1},
+              "tooltip": {
+                "signal": "{'Phase':datum.phase ,'Description':datum.Description , 'OAMP Accepts Package Date':timeFormat(datum.OAMP Accepts Package Date,'%a, %d %B %Y' ),'Proposed Award Date':timeFormat(datum.Proposed Award Date,'%a, %d %B %Y' ), 'Days':datum.days,'Progress':datum.Progress (Number)Label }"
+              }
+            }
+          }
+        },
+        {
+          "name": "milestoneName",
+          "description": "Milestone name",
+          "from": {"data": "milestoneSymbols"},
+          "type": "text",
+          "encode": {
+            "update": {
+              "x": {"signal": "datum.x"},
+              "align": {"signal": "'left'"},
+              "dx": {"signal": "15"},
+              "y": {"signal": "datum.y"},
+              "baseline": {"value": "middle"},
+              "text": {"signal": "datum.datum.Description"},
+              "fill": {"value": "#666666"}
+            }
+          }
+        },
+        {
+          "name": "depProposed Award DateencyArrowSymbol",
+          "description": "DepProposed Award Dateency arrows",
+          "type": "symbol",
+          "from": {"data": "depProposed Award DateencyArrows"},
+          "encode": {
+            "update": {
+              "shape": {"value": "triangle-right"},
+              "x": {"signal": "scale('xDays',datum.encodedOAMP Accepts Package Date)-3"},
+              "y": {"signal": "scale('y',datum.Description)+bandwidth('y')/2"},
+              "fill": {"value": "#6a6a6a"},
+              "size": {"signal": "pow( min(y_step,x_step),1.3)"}
+            }
+          }
+        }
+      ],
+      "axes": [
+        {
+          "description": "Day axis",
+          "ticks": true,
+          "labelPadding": -12,
+          "scale": "xDays",
+          "tickSize": 15,
+          "orient": "top",
+          "bandPosition": 0,
+          "grid": false,
+          "zindex": 1,
+          "encode": {
+            "labels": {
+              "update": {
+                "text": [
+                  {
+                    "signal": "timeFormat(timeParse(datum.label,'%d/%m/%y'),'%d')"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "description": "Month axis",
+          "scale": "xDays",
+          "domain": false,
+          "orient": "top",
+          "offset": 0,
+          "tickSize": 25,
+          "labelFontSize": 12,
+          "bandPosition": 0,
+          "grid": false,
+          "zindex": 0,
+          "encode": {
+            "ticks": {
+              "update": {
+                "strokeOpacity": [
+                  {
+                    "test": "timeFormat(timeParse(datum.label,'%d/%m/%y'),'%d')   == '01'",
+                    "value": 1
+                  },
+                  {"value": 0}
+                ]
+              }
+            },
+            "labels": {
+              "update": {
+                "text": [
+                  {
+                    "test": "timeFormat(timeParse(datum.label,'%d/%m/%y'),'%d')   == '15'",
+                    "signal": "timeFormat(timeParse(datum.label,'%d/%m/%y'),'%B')"
+                  },
+                  {"value": ""}
+                ]
+              }
+            }
+          }
+        },
+        {
+          "scale": "y",
+          "orient": "left",
+          "encode": {
+            "ticks": {
+              "update": {
+                "x2": {
+                  "signal": "-DescriptionColumn-OAMP Accepts Package DateColumn-Proposed Award DateColumn-daysColumn-progressColumn-(columnPadding*5)-15"
+                }
+              }
+            }
+          },
+          "tickColor": "#f1f1f1",
+          "bandPosition": 1.35,
+          "labels": false,
+          "title": "",
+          "ticks": true,
+          "zindex": 0
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "xDays",
+      "type": "band",
+      "domain": {"data": "dayScale", "fields": ["encodedDate"]},
+      "range": {"signal": "[0,ganttWidth]"}
+    },
+    {
+      "name": "y",
+      "type": "band",
+      "domain": {
+        "fields": [{"data": "y_scale", "field": "Description"}],
+        "sort": {"op": "min", "field": "finalSort", "order": "ascProposed Award Dateing"}
+      },
+      "range": {"step": {"signal": "y_step"}},
+      "paddingInner": {"signal": "yPaddingInner"},
+      "paddingOuter": {"signal": "yPaddingOuter"}
+    },
+    {
+      "name": "cStroke",
+      "type": "ordinal",
+      "range": [
+        "hsl(207, 54%, 47%)",
+        "hsl(118, 41%, 49%)",
+        "hsl(292, 35%, 47%)",
+        "hsl(30, 100%, 50%)",
+        "hsl(359, 80%, 50%)"
+      ],
+      "domain": {"data": "input", "field": "phase"}
+    },
+    {
+      "name": "cFill",
+      "type": "ordinal",
+      "range": [
+        "hsl(207, 54%, 77%)",
+        "hsl(118, 41%, 79%)",
+        "hsl(292, 35%, 77%)",
+        "hsl(30, 100%, 80%)",
+        "hsl(359, 80%, 80%)"
+      ],
+      "domain": {"data": "input", "field": "phase"}
+    }
+  ],
+  "config": {
+    "view": {"stroke": "transparent"},
+    "style": {
+      "col": {"fontSize": 11},
+      "cell": {"strokeWidth": {"signal": "0"}}
+    },
+    "font": "Arial",
+    "text": {"font": "Arial", "fontSize": 10, "fill": "#666666"},
+    "axis": {
+      "labelColor": "#666666",
+      "labelFontSize": 10,
+      "titleFont": "arial",
+      "titleColor": "#252423",
+      "titleFontSize": 16,
+      "titleFontWeight": "normal"
+    },
+    "axisY": {"labelPadding": 10}
+  }
+}
