@@ -10,8 +10,8 @@
     {"name": "yPaddingInner", "value": 0.45},
     {"name": "yPaddingOuter", "value": 0.2},
     {"name": "DescriptionColumn", "value": 130},
-    {"name": "OAMP Accepts Package DateColumn", "value": 45},
-    {"name": "Proposed Award DateColumn", "value": 45},
+    {"name": "OAMP_Accepts_Package_DateColumn", "value": 45},
+    {"name": "Proposed_Award_DateColumn", "value": 45},
     {"name": "daysColumn", "value": 35},
     {"name": "progressColumn", "value": 55},
     {"name": "columnPadding", "value": 15},
@@ -32,71 +32,71 @@
         {
           "id": 1,
           "Description": "Requirements gathering",
-          "OAMP Accepts Package Date": "01/03/2023",
-          "Proposed Award Date": "03/03/2023",
+          "OAMP_Accepts_Package_Date": "01/03/2023",
+          "Proposed_Award_Date": "03/03/2023",
           "Progress (Number)": 50
         },
         {
           "id": 2,
           "Description": "Stakeholder workshop",
-          "OAMP Accepts Package Date": "05/03/2023",
-          "Proposed Award Date": "06/03/2023",
+          "OAMP_Accepts_Package_Date": "05/03/2023",
+          "Proposed_Award_Date": "06/03/2023",
           "Progress (Number)": 75
         },
         {
           "id": 3,
           "Description": "Story boarding",
-          "OAMP Accepts Package Date": "05/03/2023",
-          "Proposed Award Date": "12/03/2023",
+          "OAMP_Accepts_Package_Date": "05/03/2023",
+          "Proposed_Award_Date": "12/03/2023",
           "Progress (Number)": 80
         },
         {
           "id": 4,
           "Description": "Initiation complete",
-          "OAMP Accepts Package Date": "13/03/2023",
-          "Proposed Award Date": "13/03/2023",
+          "OAMP_Accepts_Package_Date": "13/03/2023",
+          "Proposed_Award_Date": "13/03/2023",
           "Progress (Number)": 100
         },
         {
           "id": 5,
           "Description": "E2E data solution design",
-          "OAMP Accepts Package Date": "07/03/2023",
-          "Proposed Award Date": "15/03/2023",
+          "OAMP_Accepts_Package_Date": "07/03/2023",
+          "Proposed_Award_Date": "15/03/2023",
           "Progress (Number)": 35
         }
       ],
       "format": {
-        "parse": {"OAMP Accepts Package Date": "date:'%d/%m/%Y'", "Proposed Award Date": "date:'%d/%m/%Y'"}
+        "parse": {"OAMP_Accepts_Package_Date": "date:'%d/%m/%Y'", "Proposed_Award_Date": "date:'%d/%m/%Y'"}
       },
       "transform": [
         {
           "type": "formula",
-          "as": "encodedOAMP Accepts Package Date",
-          "expr": "timeFormat(datum.OAMP Accepts Package Date,'%d/%m/%y')"
+          "as": "encodedOAMP_Accepts_Package_Date",
+          "expr": "timeFormat(datum['OAMP_Accepts_Package_Date'],'%d/%m/%y')"
         },
         {
           "type": "formula",
-          "as": "updatedProposed Award Date",
-          "expr": "datetime(toNumber(datum.Proposed Award Date)+(1000*60*60*24))"
+          "as": "updatedProposed_Award_Date",
+          "expr": "datetime(toNumber(datum['Proposed_Award_Date'])+(1000*60*60*24))"
         },
         {
           "type": "formula",
-          "as": "encodedProposed Award Date",
-          "expr": "timeFormat(datum.updatedProposed Award Date,'%d/%m/%y')"
+          "as": "encodedProposed_Award_Date",
+          "expr": "timeFormat(datum['updatedProposed_Award_Date'],'%d/%m/%y')"
         },
         {
           "type": "formula",
           "as": "days",
-          "expr": "round((datum.updatedProposed Award Date-datum.OAMP Accepts Package Date)/1000/60/60/24)"
+          "expr": "round((datum['updatedProposed_Award_Date']-datum['OAMP_Accepts_Package_Date'])/1000/60/60/24)"
         },
         {
           "type": "formula",
           "as": "Progress (Number)Label",
-          "expr": "datum.Progress (Number)+'%'"
+          "expr": "datum['Progress (Number)']+'%'"
         },
         {
           "type": "window",
-          "sort": {"field": "OAMP Accepts Package Date", "order": "ascending"},
+          "sort": {"field": "OAMP_Accepts_Package_Date", "order": "ascending"},
           "ops": ["rank"],
           "as": ["DescriptionSort"]
         }
@@ -108,7 +108,7 @@
       "transform": [
         {
           "type": "aggregate",
-          "fields": ["OAMP Accepts Package Date", "Proposed Award Date"],
+          "fields": ["OAMP_Accepts_Package_Date", "Proposed_Award_Date"],
           "ops": ["min", "max"],
           "as": ["s", "e"]
         },
@@ -150,7 +150,7 @@
             "update": {
               "align": {"value": "left"},
               "fill": {"value": "#666666"},
-              "dx": {"value": "0"},
+              "dx": {"value": 0},
               "y": {"signal": "scale('y',datum.Description)+bandwidth('y')/2"},
               "text": {"field": "Description"},
               "baseline": {"value": "middle"},
@@ -182,7 +182,7 @@
             "update": {
               "x": {"signal": "0"},
               "width": {
-                "signal": "(item.mark.group.width/100)*datum.Progress (Number)"
+                "signal": "(item.mark.group.width/100)*datum['Progress (Number)']"
               },
               "fill": {"value": "#c6ecb5"},
               "y": {"signal": "scale('y',datum.Description)+bandwidth('y')/2"},
@@ -197,7 +197,7 @@
     {
       "name": "xDays",
       "type": "band",
-      "domain": {"data": "input", "field": "encodedOAMP Accepts Package Date"},
+      "domain": {"data": "input", "field": "encodedOAMP_Accepts_Package_Date"},
       "range": {"signal": "[0,ganttWidth]"}
     },
     {
