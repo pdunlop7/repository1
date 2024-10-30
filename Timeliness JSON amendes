@@ -1,25 +1,22 @@
 {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
-  "description": "Sidebar displaying project fields dynamically.",
-  "width": 400,
-  "height": 600,
-  "autosize": "pad",
-  "background": "white",
-  "padding": 10,
+  "description": "Sidebar display for project details",
+  "width": 300,
+  "height": 400,
+  "padding": 5,
   "data": [
     {
       "name": "projects",
-      "values": [{}]
+      "values": [{}]  // Placeholder for dynamic data
     }
   ],
   "marks": [
     {
       "type": "group",
-      "title": {"text": "Project Overview", "fontSize": 16, "anchor": "start"},
       "encode": {
         "update": {
-          "width": {"signal": "width"},
-          "height": {"signal": "height"}
+          "width": {"value": 300},
+          "height": {"value": 400}
         }
       },
       "marks": [
@@ -131,7 +128,7 @@
           "from": {"data": "projects"},
           "encode": {
             "update": {
-              "text": {"signal": "datum.days_between"},
+              "text": {"signal": "datum['Days Between Dates']"},
               "x": {"value": 150},
               "y": {"value": 140},
               "fontSize": {"value": 13}
@@ -142,7 +139,7 @@
           "type": "text",
           "encode": {
             "enter": {
-              "text": {"value": "Progress:"},
+              "text": {"value": "Progress (Number):"},
               "fontSize": {"value": 13},
               "fontWeight": {"value": "bold"}
             },
@@ -153,27 +150,12 @@
           "type": "rect",
           "from": {"data": "projects"},
           "encode": {
-            "enter": {
+            "update": {
               "x": {"value": 150},
               "y": {"value": 160},
-              "height": {"value": 20},
-              "width": {"signal": "datum['Progress (Number)'] * 2"},
+              "width": {"signal": "datum['Progress (Number)']"},
+              "height": {"value": 10},
               "fill": {"value": "#4caf50"}
-            }
-          }
-        },
-        {
-          "type": "text",
-          "from": {"data": "projects"},
-          "encode": {
-            "enter": {
-              "text": {"signal": "datum['Progress (Number)'] + '%'"},
-              "x": {"value": 200},
-              "y": {"value": 170},
-              "fill": {"value": "white"},
-              "fontSize": {"value": 13},
-              "baseline": {"value": "middle"},
-              "align": {"value": "center"}
             }
           }
         },
@@ -279,7 +261,8 @@
             },
             "update": {"x": {"value": 10}, "y": {"value": 320}}
           }
-               {
+        },
+        {
           "type": "text",
           "from": {"data": "projects"},
           "encode": {
