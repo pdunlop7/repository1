@@ -1,171 +1,120 @@
 PTS Timeliness Status = 
-IF('PTS raw'[PTS Phase (Number)] = 1,
-//Phase 1
-   IF('PTS raw'[PTS Status] = "Initial request to COR to upload documents" ||
-      'PTS raw'[PTS Status] = "Initiate Clearances" ||
-       'PTS raw'[PTS Status] = "Request COR to fix document issues",
-           IF('Last Refreshed Date'[LastRefreshedDateMeasure] <= 'PTS raw'[Complete Draft Procurement Package Due],
-               "On Schedule",
-               "Behind Schedule"
-   )),
-    IF('PTS raw'[PTS Status] = "Initiate Clearances",
-           IF('Last Refreshed Date'[LastRefreshedDateMeasure] <= 'PTS raw'[Complete Draft Procurement Package Due],
-               "On Schedule",
-               "Behind Schedule"
-           ),
-    IF('PTS raw'[PTS Status] = "ITC Clearance",
-       IF(ISBLANK('PTS raw'[ITC Clearance Approved Date]),
-           IF('Last Refreshed Date'[LastRefreshedDateMeasure] <= 'PTS raw'[ITC Clearance Due Date],
-               "On Schedule",
-               "Behind Schedule"
-           ),
-           IF('PTS raw'[ITC Clearance Approved Date] <= 'PTS raw'[ITC Clearance Due Date],
-               "On Schedule",
-               "Behind Schedule"
-           )
-       ),
-        IF('PTS raw'[PTS Status] = "OPAE Clearance",
-       IF(ISBLANK('PTS raw'[OPAE Clearance Approved Date]),
-           IF('Last Refreshed Date'[LastRefreshedDateMeasure] <= 'PTS raw'[OPAE Clearance Due Date],
-               "On Schedule",
-               "Behind Schedule"
-           ),
-           IF('PTS raw'[OPAE Clearance Approved Date] <= 'PTS raw'[OPAE Clearance Due Date],
-               "On Schedule",
-               "Behind Schedule"
-           )
-       ),
-               IF('PTS raw'[PTS Status] = "OC Clearance",
-       IF(ISBLANK('PTS raw'[OC Clearance Approved Date]),
-           IF('Last Refreshed Date'[LastRefreshedDateMeasure] <= 'PTS raw'[OC Clearance Due Date],
-               "On Schedule",
-               "Behind Schedule"
-           ),
-           IF('PTS raw'[OC Clearance Approved Date] <= 'PTS raw'[OC Clearance Due Date],
-               "On Schedule",
-               "Behind Schedule"
-           )
-       ),
-                IF('PTS raw'[PTS Status] = "OAM Clearance",
-       IF(ISBLANK('PTS raw'[OAM Clearance Approved Date]),
-           IF('Last Refreshed Date'[LastRefreshedDateMeasure] <= 'PTS raw'[OAM Clearance Due Date],
-               "On Schedule",
-               "Behind Schedule"
-           ),
-           IF('PTS raw'[OAM Clearance Approved Date] <= 'PTS raw'[OAM Clearance Due Date],
-               "On Schedule",
-               "Behind Schedule"
-           )
-       ),
-                IF('PTS raw'[PTS Status] = "Documents sent to OAMP Review",
-       IF(ISBLANK('PTS raw'[Complete Draft Procurement Package Submitted Date]),
-           IF('Last Refreshed Date'[LastRefreshedDateMeasure] <= 'PTS raw'[Complete Draft Procurement Package Due],
-               "On Schedule",
-               "Behind Schedule"
-           ),
-           IF('PTS raw'[Complete Draft Procurement Package Submitted Date] <= 'PTS raw'[Complete Draft Procurement Package Due],
-               "On Schedule",
-               "Behind Schedule"
-           )
-       ),
-       //Phase 2
-   IF('PTS raw'[PTS Status] = "PreSolicitation",
-       IF(ISBLANK('PTS raw'[Actual PreSolicitation]),
-           IF('Last Refreshed Date'[LastRefreshedDateMeasure] <= 'PTS raw'[Baseline PreSolicitation],
-               "On Schedule",
-               "Behind Schedule by " & INT('Last Refreshed Date'[LastRefreshedDateMeasure] - 'PTS raw'[Baseline PreSolicitation]) & " days (compared to last refresh date)"
-           ),
-           IF('PTS raw'[Actual PreSolicitation] <= 'PTS raw'[Baseline PreSolicitation],
-               "On Schedule",
-               "Behind Schedule by " & INT('PTS raw'[Actual PreSolicitation] - 'PTS raw'[Baseline PreSolicitation]) & " days (compared to Actual PreSolicitation)"
-           )
-       ),
-   IF('PTS raw'[PTS Status] = "Solicitation Issued on GPE (FBO or GSA eBuy)",
-       IF(ISBLANK('PTS raw'[Actual Solicitation Issued on GPE (FBO or GSA eBuy)]),
-           IF('Last Refreshed Date'[LastRefreshedDateMeasure] <= 'PTS raw'[Baseline Solicitation Issued on GPE (FBO or GSA eBuy)],
-               "On Schedule",
-               "Behind Schedule by " & INT('Last Refreshed Date'[LastRefreshedDateMeasure] - 'PTS raw'[Baseline Solicitation Issued on GPE (FBO or GSA eBuy)]) & " days (compared to last refresh date)"
-           ),
-           IF('PTS raw'[Actual Solicitation Issued on GPE (FBO or GSA eBuy)] <= 'PTS raw'[Baseline Solicitation Issued on GPE (FBO or GSA eBuy)],
-               "On Schedule",
-               "Behind Schedule by " & INT('PTS raw'[Actual Solicitation Issued on GPE (FBO or GSA eBuy)] - 'PTS raw'[Baseline Solicitation Issued on GPE (FBO or GSA eBuy)]) & " days (compared to Actual Solicitation Issued on GPE)"
-           )
-       ),
-   IF('PTS raw'[PTS Status] = "Proposal/Quotations Received",
-       IF(ISBLANK('PTS raw'[Actual Proposals/Quotations Received]),
-           IF('Last Refreshed Date'[LastRefreshedDateMeasure] <= 'PTS raw'[Baseline Proposals/Quotations Received],
-               "On Schedule",
-               "Behind Schedule by " & INT('Last Refreshed Date'[LastRefreshedDateMeasure] - 'PTS raw'[Baseline Proposals/Quotations Received]) & " days (compared to last refresh date)"
-           ),
-           IF('PTS raw'[Actual Proposals/Quotations Received] <= 'PTS raw'[Baseline Proposals/Quotations Received],
-               "On Schedule",
-               "Behind Schedule by " & INT('PTS raw'[Actual Proposals/Quotations Received] - 'PTS raw'[Baseline Proposals/Quotations Received]) & " days (compared to Actual Proposals/Quotations Received)"
-           )
-       ),
-   IF('PTS raw'[PTS Status] = "Pre-Negotiations Memorandum",
-       IF(ISBLANK('PTS raw'[Actual Pre-Negotiations Memorandum]),
-           IF('Last Refreshed Date'[LastRefreshedDateMeasure] <= 'PTS raw'[Baseline Pre-Negotiations Memorandum],
-               "On Schedule",
-               "Behind Schedule by " & INT('Last Refreshed Date'[LastRefreshedDateMeasure] - 'PTS raw'[Baseline Pre-Negotiations Memorandum]) & " days (compared to last refresh date)"
-           ),
-           IF('PTS raw'[Actual Pre-Negotiations Memorandum] <= 'PTS raw'[Baseline Pre-Negotiations Memorandum],
-               "On Schedule",
-               "Behind Schedule by " & INT('PTS raw'[Actual Pre-Negotiations Memorandum] - 'PTS raw'[Baseline Pre-Negotiations Memorandum]) & " days (compared to Actual Pre-Negotiations Memorandum)"
-           )
-       ),
-   IF('PTS raw'[PTS Status] = "Negotiations Start",
-       IF(ISBLANK('PTS raw'[Actual Negotiations Start]),
-           IF('Last Refreshed Date'[LastRefreshedDateMeasure] <= 'PTS raw'[Baseline Negotiations Start],
-               "On Schedule",
-               "Behind Schedule by " & INT('Last Refreshed Date'[LastRefreshedDateMeasure] - 'PTS raw'[Baseline Negotiations Start]) & " days (compared to last refresh date)"
-           ),
-           IF('PTS raw'[Actual Negotiations Start] <= 'PTS raw'[Baseline Negotiations Start],
-               "On Schedule",
-               "Behind Schedule by " & INT('PTS raw'[Actual Negotiations Start] - 'PTS raw'[Baseline Negotiations Start]) & " days (compared to Actual Negotiations Start)"
-           )
-       ),
-   IF('PTS raw'[PTS Status] = "TEP Consensus Meeting",
-       IF(ISBLANK('PTS raw'[Actual TEP Consensus Meeting]),
-           IF('Last Refreshed Date'[LastRefreshedDateMeasure] <= 'PTS raw'[Baseline TEP Consensus Meeting],
-               "On Schedule",
-               "Behind Schedule by " & INT('Last Refreshed Date'[LastRefreshedDateMeasure] - 'PTS raw'[Baseline TEP Consensus Meeting]) & " days (compared to last refresh date)"
-           ),
-           IF('PTS raw'[Actual TEP Consensus Meeting] <= 'PTS raw'[Baseline TEP Consensus Meeting],
-               "On Schedule",
-               "Behind Schedule by " & INT('PTS raw'[Actual TEP Consensus Meeting] - 'PTS raw'[Baseline TEP Consensus Meeting]) & " days (compared to Actual TEP Consensus Meeting)"
-           )
-       ),
-   IF('PTS raw'[PTS Status] = "Summary/ Source Selection Approved",
-       IF(ISBLANK('PTS raw'[Actual Summary/ Source Selection Approved]),
-           IF('Last Refreshed Date'[LastRefreshedDateMeasure] <= 'PTS raw'[Baseline Summary/ Source Selection Approved],
-               "On Schedule",
-               "Behind Schedule by " & INT('Last Refreshed Date'[LastRefreshedDateMeasure] - 'PTS raw'[Baseline Summary/ Source Selection Approved]) & " days (compared to last refresh date)"
-           ),
-           IF('PTS raw'[Actual Summary/ Source Selection Approved] <= 'PTS raw'[Baseline Summary/ Source Selection Approved],
-               "On Schedule",
-               "Behind Schedule by " & INT('PTS raw'[Actual Summary/ Source Selection Approved] - 'PTS raw'[Baseline Summary/ Source Selection Approved]) & " days (compared to Actual Summary/ Source Selection Approved)"
-           )
-       ),
-   IF('PTS raw'[PTS Status] = "Award Issued",
-       IF(ISBLANK('PTS raw'[Proposed Award Date]),
-           IF('Last Refreshed Date'[LastRefreshedDateMeasure] <= 'PTS raw'[Baseline Award Issued],
-               "Awarded On Schedule",
-               "Awarded Behind Schedule by " & INT('Last Refreshed Date'[LastRefreshedDateMeasure] - 'PTS raw'[Baseline Award Issued]) & " days (compared to last refresh date)"
-           ),
-           IF('PTS raw'[Proposed Award Date]<= 'PTS raw'[Baseline Award Issued],
-               "Awarded On Schedule",
-               "Awarded Behind Schedule by " & INT('PTS raw'[Proposed Award Date] - 'PTS raw'[Baseline Award Issued]) & " days (compared to Estimated Award Date)"
-           )
-       ),
-   IF('PTS raw'[PTS Status] = "Complete Procurement Package",
-       IF(ISBLANK('PTS raw'[Actual Complete Procurement Package]),
-           IF('Last Refreshed Date'[LastRefreshedDateMeasure] <= 'PTS raw'[Baseline Complete Procurement Package],
-               "On Schedule",
-               "Behind Schedule by " & INT('Last Refreshed Date'[LastRefreshedDateMeasure] - 'PTS raw'[Baseline Complete Procurement Package]) & " days (compared to last refresh date)"
-           ),
-           IF('PTS raw'[Actual Complete Procurement Package] <= 'PTS raw'[Baseline Complete Procurement Package],
-               "On Schedule",
-               "Behind Schedule by " & INT('PTS raw'[Actual Complete Procurement Package] - 'PTS raw'[Baseline Complete Procurement Package]) & " days (compared to Actual Complete Procurement Package)"
-           )
-       ),
-   ""))))))))))))))))
+IF(
+    'PTS raw'[PTS Phase (Number)] = 1,
+    // Phase 1
+    SWITCH(
+        TRUE(),
+        'PTS raw'[PTS Status] = "Initial request to COR to upload documents" ||
+        'PTS raw'[PTS Status] = "Initiate Clearances" ||
+        'PTS raw'[PTS Status] = "Request COR to fix document issues",
+        IF(
+            'Last Refreshed Date'[LastRefreshedDateMeasure] <= 'PTS raw'[Complete Draft Procurement Package Due],
+            "On Schedule",
+            "Behind Schedule"
+        ),
+        
+        'PTS raw'[PTS Status] = "ITC Clearance",
+        IF(
+            ISBLANK('PTS raw'[ITC Clearance Approved Date]),
+            IF('Last Refreshed Date'[LastRefreshedDateMeasure] <= 'PTS raw'[ITC Clearance Due Date], "On Schedule", "Behind Schedule"),
+            IF('PTS raw'[ITC Clearance Approved Date] <= 'PTS raw'[ITC Clearance Due Date], "On Schedule", "Behind Schedule")
+        ),
+        
+        'PTS raw'[PTS Status] = "OPAE Clearance",
+        IF(
+            ISBLANK('PTS raw'[OPAE Clearance Approved Date]),
+            IF('Last Refreshed Date'[LastRefreshedDateMeasure] <= 'PTS raw'[OPAE Clearance Due Date], "On Schedule", "Behind Schedule"),
+            IF('PTS raw'[OPAE Clearance Approved Date] <= 'PTS raw'[OPAE Clearance Due Date], "On Schedule", "Behind Schedule")
+        ),
+        
+        'PTS raw'[PTS Status] = "OC Clearance",
+        IF(
+            ISBLANK('PTS raw'[OC Clearance Approved Date]),
+            IF('Last Refreshed Date'[LastRefreshedDateMeasure] <= 'PTS raw'[OC Clearance Due Date], "On Schedule", "Behind Schedule"),
+            IF('PTS raw'[OC Clearance Approved Date] <= 'PTS raw'[OC Clearance Due Date], "On Schedule", "Behind Schedule")
+        ),
+        
+        'PTS raw'[PTS Status] = "OAM Clearance",
+        IF(
+            ISBLANK('PTS raw'[OAM Clearance Approved Date]),
+            IF('Last Refreshed Date'[LastRefreshedDateMeasure] <= 'PTS raw'[OAM Clearance Due Date], "On Schedule", "Behind Schedule"),
+            IF('PTS raw'[OAM Clearance Approved Date] <= 'PTS raw'[OAM Clearance Due Date], "On Schedule", "Behind Schedule")
+        ),
+        
+        'PTS raw'[PTS Status] = "Documents sent to OAMP Review",
+        IF(
+            ISBLANK('PTS raw'[Complete Draft Procurement Package Submitted Date]),
+            IF('Last Refreshed Date'[LastRefreshedDateMeasure] <= 'PTS raw'[Complete Draft Procurement Package Due], "On Schedule", "Behind Schedule"),
+            IF('PTS raw'[Complete Draft Procurement Package Submitted Date] <= 'PTS raw'[Complete Draft Procurement Package Due], "On Schedule", "Behind Schedule")
+        ),
+        ""
+    ),
+    
+    // Phase 2
+    SWITCH(
+        TRUE(),
+        'PTS raw'[PTS Status] = "PreSolicitation",
+        IF(
+            ISBLANK('PTS raw'[Actual PreSolicitation]),
+            IF('Last Refreshed Date'[LastRefreshedDateMeasure] <= 'PTS raw'[Baseline PreSolicitation], "On Schedule", "Behind Schedule by " & INT('Last Refreshed Date'[LastRefreshedDateMeasure] - 'PTS raw'[Baseline PreSolicitation]) & " days (compared to last refresh date)"),
+            IF('PTS raw'[Actual PreSolicitation] <= 'PTS raw'[Baseline PreSolicitation], "On Schedule", "Behind Schedule by " & INT('PTS raw'[Actual PreSolicitation] - 'PTS raw'[Baseline PreSolicitation]) & " days (compared to Actual PreSolicitation)")
+        ),
+        
+        'PTS raw'[PTS Status] = "Solicitation Issued on GPE (FBO or GSA eBuy)",
+        IF(
+            ISBLANK('PTS raw'[Actual Solicitation Issued on GPE (FBO or GSA eBuy)]),
+            IF('Last Refreshed Date'[LastRefreshedDateMeasure] <= 'PTS raw'[Baseline Solicitation Issued on GPE (FBO or GSA eBuy)], "On Schedule", "Behind Schedule by " & INT('Last Refreshed Date'[LastRefreshedDateMeasure] - 'PTS raw'[Baseline Solicitation Issued on GPE (FBO or GSA eBuy)]) & " days (compared to last refresh date)"),
+            IF('PTS raw'[Actual Solicitation Issued on GPE (FBO or GSA eBuy)] <= 'PTS raw'[Baseline Solicitation Issued on GPE (FBO or GSA eBuy)], "On Schedule", "Behind Schedule by " & INT('PTS raw'[Actual Solicitation Issued on GPE (FBO or GSA eBuy)] - 'PTS raw'[Baseline Solicitation Issued on GPE (FBO or GSA eBuy)]) & " days (compared to Actual Solicitation Issued on GPE)")
+        ),
+        
+        'PTS raw'[PTS Status] = "Proposal/Quotations Received",
+        IF(
+            ISBLANK('PTS raw'[Actual Proposals/Quotations Received]),
+            IF('Last Refreshed Date'[LastRefreshedDateMeasure] <= 'PTS raw'[Baseline Proposals/Quotations Received], "On Schedule", "Behind Schedule by " & INT('Last Refreshed Date'[LastRefreshedDateMeasure] - 'PTS raw'[Baseline Proposals/Quotations Received]) & " days (compared to last refresh date)"),
+            IF('PTS raw'[Actual Proposals/Quotations Received] <= 'PTS raw'[Baseline Proposals/Quotations Received], "On Schedule", "Behind Schedule by " & INT('PTS raw'[Actual Proposals/Quotations Received] - 'PTS raw'[Baseline Proposals/Quotations Received]) & " days (compared to Actual Proposals/Quotations Received)")
+        ),
+        
+        'PTS raw'[PTS Status] = "Pre-Negotiations Memorandum",
+        IF(
+            ISBLANK('PTS raw'[Actual Pre-Negotiations Memorandum]),
+            IF('Last Refreshed Date'[LastRefreshedDateMeasure] <= 'PTS raw'[Baseline Pre-Negotiations Memorandum], "On Schedule", "Behind Schedule by " & INT('Last Refreshed Date'[LastRefreshedDateMeasure] - 'PTS raw'[Baseline Pre-Negotiations Memorandum]) & " days (compared to last refresh date)"),
+            IF('PTS raw'[Actual Pre-Negotiations Memorandum] <= 'PTS raw'[Baseline Pre-Negotiations Memorandum], "On Schedule", "Behind Schedule by " & INT('PTS raw'[Actual Pre-Negotiations Memorandum] - 'PTS raw'[Baseline Pre-Negotiations Memorandum]) & " days (compared to Actual Pre-Negotiations Memorandum)")
+        ),
+        
+        'PTS raw'[PTS Status] = "Negotiations Start",
+        IF(
+            ISBLANK('PTS raw'[Actual Negotiations Start]),
+            IF('Last Refreshed Date'[LastRefreshedDateMeasure] <= 'PTS raw'[Baseline Negotiations Start], "On Schedule", "Behind Schedule by " & INT('Last Refreshed Date'[LastRefreshedDateMeasure] - 'PTS raw'[Baseline Negotiations Start]) & " days (compared to last refresh date)"),
+            IF('PTS raw'[Actual Negotiations Start] <= 'PTS raw'[Baseline Negotiations Start], "On Schedule", "Behind Schedule by " & INT('PTS raw'[Actual Negotiations Start] - 'PTS raw'[Baseline Negotiations Start]) & " days (compared to Actual Negotiations Start)")
+        ),
+        
+        'PTS raw'[PTS Status] = "TEP Consensus Meeting",
+        IF(
+            ISBLANK('PTS raw'[Actual TEP Consensus Meeting]),
+            IF('Last Refreshed Date'[LastRefreshedDateMeasure] <= 'PTS raw'[Baseline TEP Consensus Meeting], "On Schedule", "Behind Schedule by " & INT('Last Refreshed Date'[LastRefreshedDateMeasure] - 'PTS raw'[Baseline TEP Consensus Meeting]) & " days (compared to last refresh date)"),
+            IF('PTS raw'[Actual TEP Consensus Meeting] <= 'PTS raw'[Baseline TEP Consensus Meeting], "On Schedule", "Behind Schedule by " & INT('PTS raw'[Actual TEP Consensus Meeting] - 'PTS raw'[Baseline TEP Consensus Meeting]) & " days (compared to Actual TEP Consensus Meeting)")
+        ),
+        
+        'PTS raw'[PTS Status] = "Summary/ Source Selection Approved",
+        IF(
+            ISBLANK('PTS raw'[Actual Summary/ Source Selection Approved]),
+            IF('Last Refreshed Date'[LastRefreshedDateMeasure] <= 'PTS raw'[Baseline Summary/ Source Selection Approved], "On Schedule", "Behind Schedule by " & INT('Last Refreshed Date'[LastRefreshedDateMeasure] - 'PTS raw'[Baseline Summary/ Source Selection Approved]) & " days (compared to last refresh date)"),
+            IF('PTS raw'[Actual Summary/ Source Selection Approved] <= 'PTS raw'[Baseline Summary/ Source Selection Approved], "On Schedule", "Behind Schedule by " & INT('PTS raw'[Actual Summary/ Source Selection Approved] - 'PTS raw'[Baseline Summary/ Source Selection Approved]) & " days (compared to Actual Summary/ Source Selection Approved)")
+        ),
+        
+        'PTS raw'[PTS Status] = "Award Issued",
+        IF(
+            ISBLANK('PTS raw'[Proposed Award Date]),
+            IF('Last Refreshed Date'[LastRefreshedDateMeasure] <= 'PTS raw'[Baseline Award Issued], "Awarded On Schedule", "Awarded Behind Schedule by " & INT('Last Refreshed Date'[LastRefreshedDateMeasure] - 'PTS raw'[Baseline Award Issued]) & " days (compared to last refresh date)"),
+            IF('PTS raw'[Proposed Award Date] <= 'PTS raw'[Baseline Award Issued], "Awarded On Schedule", "Awarded Behind Schedule by " & INT('PTS raw'[Proposed Award Date] - 'PTS raw'[Baseline Award Issued]) & " days (compared to Estimated Award Date)")
+        ),
+        
+        'PTS raw'[PTS Status] = "Complete Procurement Package",
+        IF(
+            ISBLANK('PTS raw'[Actual Complete Procurement Package]),
+            IF('Last Refreshed Date'[LastRefreshedDateMeasure] <= 'PTS raw'[Baseline Complete Procurement Package], "On Schedule", "Behind Schedule by " & INT('Last Refreshed Date'[LastRefreshedDateMeasure] - 'PTS raw'[Baseline Complete Procurement Package]) & " days (compared to last refresh date)"),
+            IF('PTS raw'[Actual Complete Procurement Package] <= 'PTS raw'[Baseline Complete Procurement Package], "On Schedule", "Behind Schedule by " & INT('PTS raw'[Actual Complete Procurement Package] - 'PTS raw'[Baseline Complete Procurement Package]) & " days (compared to Actual Complete Procurement Package)")
+        ),
+        ""
+    )
+)
