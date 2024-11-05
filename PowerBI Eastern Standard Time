@@ -1,0 +1,10 @@
+Eastern Standard Time = VAR CurrentTimeUTC = NOW() - TIME(1, 0, 0)  // Adjust for EST (Eastern Standard Time)
+VAR DSTStartDate = DATE(YEAR(NOW()), 3, 8)  // Second Sunday in March
+VAR DSTEndDate = DATE(YEAR(NOW()), 11, 1)  // First Sunday in November
+VAR AdjustedTimeUTC =
+   IF(
+       CurrentTimeUTC >= DSTStartDate && CurrentTimeUTC < DSTEndDate,
+       CurrentTimeUTC + TIME(1, 0, 0),  // Adjust for EDT (Eastern Daylight Time)
+       CurrentTimeUTC
+   )
+RETURN AdjustedTimeUTC -TIME(4,0,0)
