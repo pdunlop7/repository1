@@ -1,10 +1,13 @@
-Eastern Standard Time = VAR CurrentTimeUTC = NOW() - TIME(1, 0, 0)  // Adjust for EST (Eastern Standard Time)
-VAR DSTStartDate = DATE(YEAR(NOW()), 3, 8)  // Second Sunday in March
-VAR DSTEndDate = DATE(YEAR(NOW()), 11, 1)  // First Sunday in November
-VAR AdjustedTimeUTC =
-   IF(
-       CurrentTimeUTC >= DSTStartDate && CurrentTimeUTC < DSTEndDate,
-       CurrentTimeUTC + TIME(1, 0, 0),  // Adjust for EDT (Eastern Daylight Time)
-       CurrentTimeUTC
-   )
-RETURN AdjustedTimeUTC -TIME(4,0,0)
+EasternTime =
+VAR CurrentTimeUTC = NOW()
+VAR Year = YEAR(CurrentTimeUTC)
+VAR DSTStartDate =
+    DATE(Year, 3, 14) - WEEKDAY(DATE(Year, 3, 14), 2) + 1
+VAR DSTEndDate =
+    DATE(Year, 11, 7) - WEEKDAY(DATE(Year, 11, 7), 2) + 1
+VAR IsDST =
+    CurrentTimeUTC >= DSTStartDate && CurrentTimeUTC < DSTEndDate
+VAR TimeOffset =
+    IF(IsDST, -4, -5) / 24
+RETURN
+    CurrentTimeUTC + TimeOffset
