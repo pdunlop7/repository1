@@ -6,55 +6,55 @@ IF(
         'PTS raw'[PTS Status] = "Initial request to COR to upload documents" ||
         'PTS raw'[PTS Status] = "Initiate Clearances" ||
         'PTS raw'[PTS Status] = "Request COR to fix document issues",
-        VAR FiscalYearEnd = DATE(VALUE("20" & RIGHT('PTS raw'[fiscal year (FY)], 2)), 9, 30)
+        VAR 'PTS raw'[Fiscal Year End Date] = DATE(VALUE("20" & RIGHT('PTS raw'[fiscal year (FY)], 2)), 9, 30)
         RETURN IF(
             ISBLANK('PTS raw'[Complete Draft Procurement Package Due]),
             BLANK(),
             IF(
-                'PTS raw'[Complete Draft Procurement Package Due] > FiscalYearEnd,
-                FiscalYearEnd,
+                'PTS raw'[Complete Draft Procurement Package Due] > 'PTS raw'[Fiscal Year End Date],
+                'PTS raw'[Fiscal Year End Date],
                 'PTS raw'[Complete Draft Procurement Package Due]
             )
         ),
         
         'PTS raw'[PTS Status] = "ITC Clearance",
-        VAR FiscalYearEnd = DATE(VALUE("20" & RIGHT('PTS raw'[fiscal year (FY)], 2)), 9, 30)
+        VAR 'PTS raw'[Fiscal Year End Date] = DATE(VALUE("20" & RIGHT('PTS raw'[fiscal year (FY)], 2)), 9, 30)
         RETURN IF(
-            'PTS raw'[ITC Clearance Due Date] > FiscalYearEnd,
-            FiscalYearEnd,
+            'PTS raw'[ITC Clearance Due Date] > 'PTS raw'[Fiscal Year End Date],
+            'PTS raw'[Fiscal Year End Date],
             'PTS raw'[ITC Clearance Due Date]
         ),
         
         'PTS raw'[PTS Status] = "OPAE Clearance",
-        VAR FiscalYearEnd = DATE(VALUE("20" & RIGHT('PTS raw'[fiscal year (FY)], 2)), 9, 30)
+        VAR 'PTS raw'[Fiscal Year End Date] = DATE(VALUE("20" & RIGHT('PTS raw'[fiscal year (FY)], 2)), 9, 30)
         RETURN IF(
-            'PTS raw'[OPAE Clearance Due Date] > FiscalYearEnd,
-            FiscalYearEnd,
+            'PTS raw'[OPAE Clearance Due Date] > 'PTS raw'[Fiscal Year End Date],
+            'PTS raw'[Fiscal Year End Date],
             'PTS raw'[OPAE Clearance Due Date]
         ),
         
         'PTS raw'[PTS Status] = "OC Clearance",
-        VAR FiscalYearEnd = DATE(VALUE("20" & RIGHT('PTS raw'[fiscal year (FY)], 2)), 9, 30)
+        VAR 'PTS raw'[Fiscal Year End Date] = DATE(VALUE("20" & RIGHT('PTS raw'[fiscal year (FY)], 2)), 9, 30)
         RETURN IF(
-            'PTS raw'[OC Clearance Due Date] > FiscalYearEnd,
-            FiscalYearEnd,
+            'PTS raw'[OC Clearance Due Date] > 'PTS raw'[Fiscal Year End Date],
+            'PTS raw'[Fiscal Year End Date],
             'PTS raw'[OC Clearance Due Date]
         ),
         
         'PTS raw'[PTS Status] = "OAM Clearance",
-        VAR FiscalYearEnd = DATE(VALUE("20" & RIGHT('PTS raw'[fiscal year (FY)], 2)), 9, 30)
+        VAR 'PTS raw'[Fiscal Year End Date] = DATE(VALUE("20" & RIGHT('PTS raw'[fiscal year (FY)], 2)), 9, 30)
         RETURN IF(
-            'PTS raw'[OAM Clearance Due Date] > FiscalYearEnd,
-            FiscalYearEnd,
+            'PTS raw'[OAM Clearance Due Date] > 'PTS raw'[Fiscal Year End Date],
+            'PTS raw'[Fiscal Year End Date],
             'PTS raw'[OAM Clearance Due Date]
         ),
         
         'PTS raw'[PTS Status] = "Documents sent to OAMP Review" ||
         'PTS raw'[PTS Status] = "OAMP Accepts the Documents",
-        VAR FiscalYearEnd = DATE(VALUE("20" & RIGHT('PTS raw'[fiscal year (FY)], 2)), 9, 30)
+        VAR 'PTS raw'[Fiscal Year End Date] = DATE(VALUE("20" & RIGHT('PTS raw'[fiscal year (FY)], 2)), 9, 30)
         RETURN IF(
-            'PTS raw'[Complete Draft Procurement Package Due] > FiscalYearEnd,
-            FiscalYearEnd,
+            'PTS raw'[Complete Draft Procurement Package Due] > 'PTS raw'[Fiscal Year End Date],
+            'PTS raw'[Fiscal Year End Date],
             'PTS raw'[Complete Draft Procurement Package Due]
         ),
         BLANK()
@@ -65,82 +65,82 @@ IF(
         SWITCH(
             TRUE(),
             'PTS raw'[PTS Status] = "Internal Pre-Award Review/Approval Complete",
-            VAR FiscalYearEnd = DATE(VALUE("20" & RIGHT('PTS raw'[fiscal year (FY)], 2)), 9, 30)
+            VAR 'PTS raw'[Fiscal Year End Date] = DATE(VALUE("20" & RIGHT('PTS raw'[fiscal year (FY)], 2)), 9, 30)
             RETURN IF(
-                'PTS raw'[Baseline Award Issued] > FiscalYearEnd,
-                FiscalYearEnd,
+                'PTS raw'[Baseline Award Issued] > 'PTS raw'[Fiscal Year End Date],
+                'PTS raw'[Fiscal Year End Date],
                 'PTS raw'[Baseline Award Issued]
             ),
             
             'PTS raw'[PTS Status] = "PreSolicitation",
-            VAR FiscalYearEnd = DATE(VALUE("20" & RIGHT('PTS raw'[fiscal year (FY)], 2)), 9, 30)
+            VAR 'PTS raw'[Fiscal Year End Date] = DATE(VALUE("20" & RIGHT('PTS raw'[fiscal year (FY)], 2)), 9, 30)
             RETURN IF(
-                'PTS raw'[Baseline PreSolicitation] > FiscalYearEnd,
-                FiscalYearEnd,
+                'PTS raw'[Baseline PreSolicitation] > 'PTS raw'[Fiscal Year End Date],
+                'PTS raw'[Fiscal Year End Date],
                 'PTS raw'[Baseline PreSolicitation]
             ),
             
             'PTS raw'[PTS Status] = "Solicitation Issued on GPE (FBO or GSA eBuy)",
-            VAR FiscalYearEnd = DATE(VALUE("20" & RIGHT('PTS raw'[fiscal year (FY)], 2)), 9, 30)
+            VAR 'PTS raw'[Fiscal Year End Date] = DATE(VALUE("20" & RIGHT('PTS raw'[fiscal year (FY)], 2)), 9, 30)
             RETURN IF(
-                'PTS raw'[Baseline Solicitation Issued on GPE (FBO or GSA eBuy)] > FiscalYearEnd,
-                FiscalYearEnd,
+                'PTS raw'[Baseline Solicitation Issued on GPE (FBO or GSA eBuy)] > 'PTS raw'[Fiscal Year End Date],
+                'PTS raw'[Fiscal Year End Date],
                 'PTS raw'[Baseline Solicitation Issued on GPE (FBO or GSA eBuy)]
             ),
             
             'PTS raw'[PTS Status] = "Proposal/Quotations Received",
-            VAR FiscalYearEnd = DATE(VALUE("20" & RIGHT('PTS raw'[fiscal year (FY)], 2)), 9, 30)
+            VAR 'PTS raw'[Fiscal Year End Date] = DATE(VALUE("20" & RIGHT('PTS raw'[fiscal year (FY)], 2)), 9, 30)
             RETURN IF(
-                'PTS raw'[Baseline Proposals/Quotations Received] > FiscalYearEnd,
-                FiscalYearEnd,
+                'PTS raw'[Baseline Proposals/Quotations Received] > 'PTS raw'[Fiscal Year End Date],
+                'PTS raw'[Fiscal Year End Date],
                 'PTS raw'[Baseline Proposals/Quotations Received]
             ),
             
             'PTS raw'[PTS Status] = "Pre-Negotiations Memorandum",
-            VAR FiscalYearEnd = DATE(VALUE("20" & RIGHT('PTS raw'[fiscal year (FY)], 2)), 9, 30)
+            VAR 'PTS raw'[Fiscal Year End Date] = DATE(VALUE("20" & RIGHT('PTS raw'[fiscal year (FY)], 2)), 9, 30)
             RETURN IF(
-                'PTS raw'[Baseline Pre-Negotiations Memorandum] > FiscalYearEnd,
-                FiscalYearEnd,
+                'PTS raw'[Baseline Pre-Negotiations Memorandum] > 'PTS raw'[Fiscal Year End Date],
+                'PTS raw'[Fiscal Year End Date],
                 'PTS raw'[Baseline Pre-Negotiations Memorandum]
             ),
             
             'PTS raw'[PTS Status] = "Negotiations Start",
-            VAR FiscalYearEnd = DATE(VALUE("20" & RIGHT('PTS raw'[fiscal year (FY)], 2)), 9, 30)
+            VAR 'PTS raw'[Fiscal Year End Date] = DATE(VALUE("20" & RIGHT('PTS raw'[fiscal year (FY)], 2)), 9, 30)
             RETURN IF(
-                'PTS raw'[Baseline Negotiations Start] > FiscalYearEnd,
-                FiscalYearEnd,
+                'PTS raw'[Baseline Negotiations Start] > 'PTS raw'[Fiscal Year End Date],
+                'PTS raw'[Fiscal Year End Date],
                 'PTS raw'[Baseline Negotiations Start]
             ),
             
             'PTS raw'[PTS Status] = "TEP Consensus Meeting",
-            VAR FiscalYearEnd = DATE(VALUE("20" & RIGHT('PTS raw'[fiscal year (FY)], 2)), 9, 30)
+            VAR 'PTS raw'[Fiscal Year End Date] = DATE(VALUE("20" & RIGHT('PTS raw'[fiscal year (FY)], 2)), 9, 30)
             RETURN IF(
-                'PTS raw'[Baseline TEP Consensus Meeting] > FiscalYearEnd,
-                FiscalYearEnd,
+                'PTS raw'[Baseline TEP Consensus Meeting] > 'PTS raw'[Fiscal Year End Date],
+                'PTS raw'[Fiscal Year End Date],
                 'PTS raw'[Baseline TEP Consensus Meeting]
             ),
             
             'PTS raw'[PTS Status] = "Summary/ Source Selection Approved",
-            VAR FiscalYearEnd = DATE(VALUE("20" & RIGHT('PTS raw'[fiscal year (FY)], 2)), 9, 30)
+            VAR 'PTS raw'[Fiscal Year End Date] = DATE(VALUE("20" & RIGHT('PTS raw'[fiscal year (FY)], 2)), 9, 30)
             RETURN IF(
-                'PTS raw'[Baseline Summary/ Source Selection Approved] > FiscalYearEnd,
-                FiscalYearEnd,
+                'PTS raw'[Baseline Summary/ Source Selection Approved] > 'PTS raw'[Fiscal Year End Date],
+                'PTS raw'[Fiscal Year End Date],
                 'PTS raw'[Baseline Summary/ Source Selection Approved]
             ),
             
             'PTS raw'[PTS Status] = "Complete Procurement Package",
-            VAR FiscalYearEnd = DATE(VALUE("20" & RIGHT('PTS raw'[fiscal year (FY)], 2)), 9, 30)
+            VAR 'PTS raw'[Fiscal Year End Date] = DATE(VALUE("20" & RIGHT('PTS raw'[fiscal year (FY)], 2)), 9, 30)
             RETURN IF(
-                'PTS raw'[Baseline Complete Procurement Package] > FiscalYearEnd,
-                FiscalYearEnd,
+                'PTS raw'[Baseline Complete Procurement Package] > 'PTS raw'[Fiscal Year End Date],
+                'PTS raw'[Fiscal Year End Date],
                 'PTS raw'[Baseline Complete Procurement Package]
             ),
             
             'PTS raw'[PTS Status] = "Award Issued",
-            VAR FiscalYearEnd = DATE(VALUE("20" & RIGHT('PTS raw'[fiscal year (FY)], 2)), 9, 30)
+            VAR 'PTS raw'[Fiscal Year End Date] = DATE(VALUE("20" & RIGHT('PTS raw'[fiscal year (FY)], 2)), 9, 30)
             RETURN IF(
-                'PTS raw'[Baseline Award Issued] > FiscalYearEnd,
-                FiscalYearEnd,
+                'PTS raw'[Baseline Award Issued] > 'PTS raw'[Fiscal Year End Date],
+                'PTS raw'[Fiscal Year End Date],
                 'PTS raw'[Baseline Award Issued]
             ),
             BLANK()
