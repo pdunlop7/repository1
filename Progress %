@@ -1,40 +1,51 @@
 Progress (Number) = 
-
-IF('PTS raw'[PTS Phase (Number)]=1,
-IF('PTS raw'[PTS Status]="Initial request to COR to upload documents"&&
-NOT(ISBLANK('PTS raw'[ITC Clearance Approved Date])||
-NOT ISBLANK('PTS raw'[OC Clearance Approved Date])||
-NOT ISBLANK('PTS raw'[OPAE Clearance Approved Date])||
-NOT ISBLANK('PTS raw'[OAM Clearance Approved Date])),0.7,
-
-IF('PTS raw'[PTS Status]="Initial request to COR to upload documents",0.1,
-IF('PTS raw'[PTS Status]="Initiate Clearances",0.2,
-IF('PTS raw'[PTS Status]="Request COR to fix document issues",0.25,
-IF('PTS raw'[PTS Status]="ITC Clearance",0.3,
-IF('PTS raw'[PTS Status]="OPAE Clearance",0.4,
-IF('PTS raw'[PTS Status]="OC Clearance",0.5,
-IF('PTS raw'[PTS Status]="OAM Clearance",0.6,
-IF('PTS raw'[PTS Status]="Documents sent to OAMP Review",0.8,
-IF('PTS raw'[PTS Status]="Request COR to fix document issues",0.9,
-IF('PTS raw'[PTS Status]="OAMP Accepts the documents",1,
-
-IF('PTS raw'[PTS Status]="Cancelled",0,
-
-IF('PTS raw'[PTS Phase (Number)]=2,
-IF('PTS Raw'[PTS Status (Phase 2)]="PreSolicitation",.11,
-IF('PTS Raw'[PTS Status (Phase 2)]="Complete Procurement Package",.11,
-IF('PTS Raw'[PTS Status (Phase 2)]="Solicitation Issued on GPE (FBO or GSA eBuy)",.22,
-IF('PTS Raw'[PTS Status (Phase 2)]="RFS Issued",.22,
-IF('PTS Raw'[PTS Status (Phase 2)]="Proposal/Quotations Received",.33,
-IF('PTS Raw'[PTS Status (Phase 2)]="RFS Due",.33,
-IF('PTS Raw'[PTS Status (Phase 2)]="TEP Consensus Meeting",.44,
-IF('PTS Raw'[PTS Status (Phase 2)]="RFS Reviewed",.44,
-IF('PTS Raw'[PTS Status (Phase 2)]="TEP Chairperson’s Report & Cost Proposal Review/Past Performance Review",.55,
-IF('PTS Raw'[PTS Status (Phase 2)]="Pre-Negotiations Memorandum",.66,
-IF('PTS Raw'[PTS Status (Phase 2)]="Negotiations Start",.77,
-IF('PTS Raw'[PTS Status (Phase 2)]="Negotiations Completed",.88,
-IF('PTS Raw'[PTS Status (Phase 2)]="Summary/ Source Selection Approved",.95,
-IF('PTS Raw'[PTS Status (Phase 2)]="Internal Pre-award Review/Approval Completed (<$700K - CS/CO) (>$700K - HCA)",.99,
-IF('PTS Raw'[PTS Status (Phase 2)]="Internal Pre-award Review/Approval Completed",.99,
-IF('PTS Raw'[PTS Status (Phase 2)]="Award Issued",1,BLANK())
-)))))))))))))))))))))))))))))
+IF(
+    'PTS raw'[PTS Phase (Number)] = 1,
+    SWITCH(
+        TRUE(),
+        'PTS raw'[PTS Status] = "Initial request to COR to upload documents" &&
+        (
+            NOT(ISBLANK('PTS raw'[ITC Clearance Approved Date])) ||
+            NOT(ISBLANK('PTS raw'[OC Clearance Approved Date])) ||
+            NOT(ISBLANK('PTS raw'[OPAE Clearance Approved Date])) ||
+            NOT(ISBLANK('PTS raw'[OAM Clearance Approved Date]))
+        ), 0.7,
+        
+        'PTS raw'[PTS Status] = "Initial request to COR to upload documents", 0.1,
+        'PTS raw'[PTS Status] = "Initiate Clearances", 0.2,
+        'PTS raw'[PTS Status] = "Request COR to fix document issues", 0.25,
+        'PTS raw'[PTS Status] = "ITC Clearance", 0.3,
+        'PTS raw'[PTS Status] = "OPAE Clearance", 0.4,
+        'PTS raw'[PTS Status] = "OC Clearance", 0.5,
+        'PTS raw'[PTS Status] = "OAM Clearance", 0.6,
+        'PTS raw'[PTS Status] = "Documents sent to OAMP Review", 0.8,
+        'PTS raw'[PTS Status] = "OAMP Accepts the documents", 1,
+        'PTS raw'[PTS Status] = "Cancelled", 0,
+        BLANK()
+    ),
+    
+    IF(
+        'PTS raw'[PTS Phase (Number)] = 2,
+        SWITCH(
+            TRUE(),
+            'PTS raw'[PTS Status (Phase 2)] = "PreSolicitation", 0.11,
+            'PTS raw'[PTS Status (Phase 2)] = "Complete Procurement Package", 0.11,
+            'PTS raw'[PTS Status (Phase 2)] = "Solicitation Issued on GPE (FBO or GSA eBuy)", 0.22,
+            'PTS raw'[PTS Status (Phase 2)] = "RFS Issued", 0.22,
+            'PTS raw'[PTS Status (Phase 2)] = "Proposal/Quotations Received", 0.33,
+            'PTS raw'[PTS Status (Phase 2)] = "RFS Due", 0.33,
+            'PTS raw'[PTS Status (Phase 2)] = "TEP Consensus Meeting", 0.44,
+            'PTS raw'[PTS Status (Phase 2)] = "RFS Reviewed", 0.44,
+            'PTS raw'[PTS Status (Phase 2)] = "TEP Chairperson’s Report & Cost Proposal Review/Past Performance Review", 0.55,
+            'PTS raw'[PTS Status (Phase 2)] = "Pre-Negotiations Memorandum", 0.66,
+            'PTS raw'[PTS Status (Phase 2)] = "Negotiations Start", 0.77,
+            'PTS raw'[PTS Status (Phase 2)] = "Negotiations Completed", 0.88,
+            'PTS raw'[PTS Status (Phase 2)] = "Summary/ Source Selection Approved", 0.95,
+            'PTS raw'[PTS Status (Phase 2)] = "Internal Pre-award Review/Approval Completed (<$700K - CS/CO) (>$700K - HCA)", 0.99,
+            'PTS raw'[PTS Status (Phase 2)] = "Internal Pre-award Review/Approval Completed", 0.99,
+            'PTS raw'[PTS Status (Phase 2)] = "Award Issued", 1,
+            BLANK()
+        ),
+        BLANK()
+    )
+)
