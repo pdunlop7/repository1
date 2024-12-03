@@ -1,0 +1,1 @@
+addProperty(outputs('Compose')?[item(),'IsDuplicate',if(equals(outputs('Compose'),[item()]?['concat'],outputs('Compose')?[sub(item(),1)]?['concat']),'T','F'))
