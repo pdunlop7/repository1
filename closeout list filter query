@@ -1,1 +1,3 @@
+@not(equals(triggerOutputs()?['body/IsDuplicate'], 'true'))
+
 [Award Number + Order Number] eq '@{triggerOutputs()?['body/Award_x0020_Number_x0020__x002b__x0020_Order_x0020_Number']}' and ID ne @{triggerOutputs()?['body/ID']}
