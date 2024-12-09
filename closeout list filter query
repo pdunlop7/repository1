@@ -1,3 +1,1 @@
-@not(equals(triggerOutputs()?['body/IsDuplicate'], 'true'))
-
-[Award Number + Order Number] eq '@{triggerOutputs()?['body/Award_x0020_Number_x0020__x002b__x0020_Order_x0020_Number']}' and ID ne @{triggerOutputs()?['body/ID']}
+@or(equals(dayOfWeek(utcNow()), 1), equals(dayOfWeek(utcNow()), 2), equals(dayOfWeek(utcNow()), 3), equals(dayOfWeek(utcNow()), 4), equals(dayOfWeek(utcNow()), 5))
