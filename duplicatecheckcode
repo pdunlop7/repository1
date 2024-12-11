@@ -1,1 +1,1 @@
-length(filter(outputs('Get_Items')?['body']['value'], item() ? ['Award_x0020_Number_x0020_Order_x0020_Number'] == items('Apply_to_each')?['Award_x0020_Number_x0020__x002b_']))
+length(filter(outputs('Get_Items')?['body']['value'], item()?['Award_x0020_Number_x0020_Order_x0020_Number'] == items('Apply_to_each')?['Award_x0020_Number_x0020_Order_x0020_Number']))
