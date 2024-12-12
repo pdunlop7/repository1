@@ -1,2 +1,1 @@
 int(length(filter(outputs('Get_Items')?['body/value'], item()?['Award_x0020_Number_x0020__x002b_'] == items('Apply_to_each_2')?['Award_x0020_Number_x0020__x002b_'])))
-
