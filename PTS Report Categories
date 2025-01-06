@@ -1,0 +1,17 @@
+Base/OY/Mod/Awarded = 
+IF('PTS raw'[PTS Status]="Awarded","Awarded",
+
+IF('PTS raw'[Issue Type (Phase 1) (Details)]="Pre-Planning Exercising Option Periods",
+"OY",
+
+IF('PTS raw'[Issue Type (Phase 1) (Details)]="Pre-Planning Admin Mod - COR Change" || 'PTS raw'[Issue Type (Phase 1) (Details)]="Pre-Planning Modification - Scope Changes",
+"Modification",
+
+IF('PTS raw'[Issue Type (Phase 1) (Details)]="Pre-Planning Exercising Optional Tasks",
+"Task Order",
+
+IF('PTS raw'[Issue Type (Phase 1) (Details)]="DIR Task Order" || "Pre-Planning Services over $50M" || "Pre-Planning Services under $50M" || "Pre-Planning Supplies/Products under $50M" || "Pre-Planning Supplies/Products over $50M",
+"Base",
+
+"")
+))))
