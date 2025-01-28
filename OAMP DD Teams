@@ -1,24 +1,24 @@
-OAMP Teams = IF('4CAST raw'[Division Director]="Kwasi Antwi","RJC1 (Antwi)",
-IF('4CAST raw'[Division Director]="Jimmy Hupalar","RJC2 (Hupalar)",
-IF('4CAST raw'[Division Director]="Russell Grabill","RJC3 (Grabill)",
-IF('4CAST raw'[Division Director]="Saul Simmons","RJC4 (Simmons)",
-IF(ISBLANK('4CAST raw'[Division Director]),
-
-IF('4CAST raw'[Office/Bureau]="OIT","RJC1 (Antwi)",
-
-IF('4CAST raw'[Office/Bureau]="FORHP" ||
-IF('4CAST raw'[Office/Bureau]="HAB" ||
-IF('4CAST raw'[Office/Bureau]="OAT" ||
-IF('4CAST raw'[Office/Bureau]="BHW" ||
-IF('4CAST raw'[Office/Bureau]="BPHC" ||
-IF('4CAST raw'[Office/Bureau]="HSB", "RJC1 (Hupalar)",
-
-
-IF('4CAST raw'[Office/Bureau]="MCHB" ||
-IF('4CAST raw'[Office/Bureau]="OFAM" ||
-IF('4CAST raw'[Office/Bureau]="OIEA" ||
-IF('4CAST raw'[Office/Bureau]="OO" ||
-IF('4CAST raw'[Office/Bureau]="PRB", "RJC3 (Grabill)",
-
-
-,'4CAST raw'[Division Director])))))))))))))))))
+OAMP Teams = 
+IF(
+    '4CAST raw'[Division Director] = "Kwasi Antwi", "RJC1 (Antwi)",
+    IF(
+        '4CAST raw'[Division Director] = "Jimmy Hupalar", "RJC2 (Hupalar)",
+        IF(
+            '4CAST raw'[Division Director] = "Russell Grabill", "RJC3 (Grabill)",
+            IF(
+                '4CAST raw'[Division Director] = "Saul Simmons", "RJC4 (Simmons)",
+                IF(
+                    ISBLANK('4CAST raw'[Division Director]),
+                    SWITCH(
+                        TRUE(),
+                        '4CAST raw'[Office/Bureau] = "OIT", "RJC1 (Antwi)",
+                        '4CAST raw'[Office/Bureau] IN {"FORHP", "HAB", "OAT", "BHW", "BPHC", "HSB"}, "RJC2 (Hupalar)",
+                        '4CAST raw'[Office/Bureau] IN {"MCHB", "OFAM", "OIEA", "OO", "PRB"}, "RJC3 (Grabill)",
+                        BLANK()
+                    ),
+                    BLANK()
+                )
+            )
+        )
+    )
+)
