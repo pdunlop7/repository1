@@ -1,13 +1,12 @@
 OAMP Teams = 
 IF(
-    NOT ISBLANK('4CAST raw'[Division Director]),
+    '4CAST raw'[Division Director] IN {"Kwasi Antwi", "Jimmy Hupalar", "Russell Grabill", "Saul Simmons"},
     SWITCH(
         '4CAST raw'[Division Director],
         "Kwasi Antwi", "RJC1 (Antwi)",
         "Jimmy Hupalar", "RJC2 (Hupalar)",
         "Russell Grabill", "RJC3 (Grabill)",
-        "Saul Simmons", "RJC4 (Simmons)",
-        BLANK()
+        "Saul Simmons", "RJC4 (Simmons)"
     ),
     SWITCH(
         TRUE(),
