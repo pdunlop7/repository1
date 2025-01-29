@@ -1,18 +1,34 @@
 OAMP Teams = 
 IF(
-    '4CAST raw'[Division Director] IN {"Kwasi Antwi", "Jimmy Hupalar", "Russell Grabill", "Saul Simmons"},
-    SWITCH(
-        '4CAST raw'[Division Director],
-        "Kwasi Antwi", "RJC1 (Antwi)",
-        "Jimmy Hupalar", "RJC2 (Hupalar)",
-        "Russell Grabill", "RJC3 (Grabill)",
-        "Saul Simmons", "RJC4 (Simmons)"
-    ),
-    SWITCH(
-        TRUE(),
-        '4CAST raw'[Office/Bureau] = "OIT", "RJC1 (Antwi)",
-        '4CAST raw'[Office/Bureau] IN {"FORHP", "HAB", "OAT", "BHW", "BPHC", "HSB"}, "RJC2 (Hupalar)",
-        '4CAST raw'[Office/Bureau] IN {"MCHB", "OFAM", "OIEA", "OO", "PRB"}, "RJC3 (Grabill)",
-        BLANK()
+    '4CAST raw'[Division Director] = "Kwasi Antwi",
+    "RJC1 (Antwi)",
+    IF(
+        '4CAST raw'[Division Director] = "Jimmy Hupalar",
+        "RJC2 (Hupalar)",
+        IF(
+            '4CAST raw'[Division Director] = "Russell Grabill",
+            "RJC3 (Grabill)",
+            IF(
+                '4CAST raw'[Division Director] = "Saul Simmons",
+                "RJC4 (Simmons)",
+                SWITCH(
+                    TRUE(),
+                    CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)],"OIT"), "RJC1 (Antwi)", // RJC1 Logic
+                    CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)],"FORHP") 
+                        || CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)],"HAB") 
+                        || CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)],"OAT") 
+                        || CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)],"BHW") 
+                        || CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)],"BPHC") 
+                        || CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)],"HSB") 
+                        || CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)],"NDHP"), "RJC2 (Hupalar)", // RJC2 Logic
+                    CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)],"MCHB") 
+                        || CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)],"OEIA") 
+                        || CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)],"OO") 
+                        || CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)],"OA") 
+                        || CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)],"PRB"), "RJC3 (Grabill)", // RJC3 Logic
+                    BLANK()
+                )
+            )
+        )
     )
 )
