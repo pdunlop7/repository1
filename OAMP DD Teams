@@ -1,34 +1,35 @@
 OAMP Teams = 
+VAR DivisionDirector = IF(
+    ISBLANK('4CAST raw'[Division Director]) || '4CAST raw'[Division Director] = "No Entry",
+    BLANK(),
+    '4CAST raw'[Division Director]
+)
+
+RETURN 
 IF(
-    '4CAST raw'[Division Director] = "Kwasi Antwi",
-    "RJC1 (Antwi)",
-    IF(
-        '4CAST raw'[Division Director] = "Jimmy Hupalar",
-        "RJC2 (Hupalar)",
-        IF(
-            '4CAST raw'[Division Director] = "Russell Grabill",
-            "RJC3 (Grabill)",
-            IF(
-                '4CAST raw'[Division Director] = "Saul Simmons",
-                "RJC4 (Simmons)",
-                SWITCH(
-                    TRUE(),
-                    CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)],"OIT"), "RJC1 (Antwi)", // RJC1 Logic
-                    CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)],"FORHP") 
-                        || CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)],"HAB") 
-                        || CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)],"OAT") 
-                        || CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)],"BHW") 
-                        || CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)],"BPHC") 
-                        || CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)],"HSB") 
-                        || CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)],"NDHP"), "RJC2 (Hupalar)", // RJC2 Logic
-                    CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)],"MCHB") 
-                        || CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)],"OEIA") 
-                        || CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)],"OO") 
-                        || CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)],"OA") 
-                        || CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)],"PRB"), "RJC3 (Grabill)", // RJC3 Logic
-                    BLANK()
-                )
-            )
-        )
+    NOT ISBLANK(DivisionDirector),
+    SWITCH(
+        DivisionDirector,
+        "Kwasi Antwi", "RJC1 (Antwi)",
+        "Jimmy Hupalar", "RJC2 (Hupalar)",
+        "Russell Grabill", "RJC3 (Grabill)",
+        "Saul Simmons", "RJC4 (Simmons)"
+    ),
+    SWITCH(
+        TRUE(),
+        CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)], "OIT"), "RJC1 (Antwi)", 
+        CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)], "FORHP") 
+            || CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)], "HAB") 
+            || CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)], "OAT") 
+            || CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)], "BHW") 
+            || CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)], "BPHC") 
+            || CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)], "HSB") 
+            || CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)], "NDHP"), "RJC2 (Hupalar)", 
+        CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)], "MCHB") 
+            || CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)], "OEIA") 
+            || CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)], "OO") 
+            || CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)], "OA") 
+            || CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)], "PRB"), "RJC3 (Grabill)", 
+        BLANK()
     )
 )
