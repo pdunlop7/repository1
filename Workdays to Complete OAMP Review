@@ -1,14 +1,16 @@
-# Work Days for OAMP to Complete Review = 
-IF(ISBLANK('PTS raw'[Complete Draft Procurement Package Submitted Date]),BLANK(),
-
-IF(ISBLANK(
-IF('PTS raw'[Request COR to fix document issues date]<'PTS raw'[OAMP Accepts Package Date],
-NETWORKDAYS('PTS raw'[Complete Draft Procurement Package Submitted Date],'PTS raw'[Request COR to fix document issues date],1,Holidays),
-NETWORKDAYS('PTS raw'[Complete Draft Procurement Package Submitted Date],'PTS raw'[OAMP Accepts Package Date],1,Holidays))
-),
-
-NETWORKDAYS('PTS raw'[Complete Draft Procurement Package Submitted Date],TODAY(),1,Holidays),
-
-IF('PTS raw'[Request COR to fix document issues date]<'PTS raw'[OAMP Accepts Package Date],
-NETWORKDAYS('PTS raw'[Complete Draft Procurement Package Submitted Date],'PTS raw'[Request COR to fix document issues date],1,Holidays),
-NETWORKDAYS('PTS raw'[Complete Draft Procurement Package Submitted Date],'PTS raw'[OAMP Accepts Package Date],1,Holidays))))
+Work Days for OAMP to Complete Review = 
+IF(
+    ISBLANK('PTS raw'[Complete Draft Procurement Package Submitted Date]), 
+    BLANK(),
+    IF(
+        NOT ISBLANK('PTS raw'[Request COR to fix document issues date]) && 
+        'PTS raw'[Request COR to fix document issues date] < 'PTS raw'[OAMP Accepts Package Date],
+        NETWORKDAYS('PTS raw'[Complete Draft Procurement Package Submitted Date], 'PTS raw'[Request COR to fix document issues date], 1, Holidays),
+        IF(
+            ISBLANK('PTS raw'[Request COR to fix document issues date]) && 
+            NOT ISBLANK('PTS raw'[OAMP Accepts Package Date]),
+            NETWORKDAYS('PTS raw'[Complete Draft Procurement Package Submitted Date], 'PTS raw'[OAMP Accepts Package Date], 1, Holidays),
+            NETWORKDAYS('PTS raw'[Complete Draft Procurement Package Submitted Date], TODAY(), 1, Holidays)
+        )
+    )
+)
