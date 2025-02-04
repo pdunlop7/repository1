@@ -1,35 +1,17 @@
-OAMP Teams = 
-VAR DivisionDirector = IF(
-    ISBLANK('4CAST raw'[Division Director]) || '4CAST raw'[Division Director] = "No Entry",
-    BLANK(),
-    '4CAST raw'[Division Director]
+Division Director 2 = 
+VAR CurrentDirector = '4CAST raw'[Division Director]
+VAR CONameFromPTS = LOOKUPVALUE(
+    'PTS raw'[CO Name], 
+    'PTS raw'[4Cast ID Number], '4CAST raw'[4Cast ID Number]
+)
+VAR DirectorFromPTS = LOOKUPVALUE(
+    'PTS raw'[Division Director], 
+    'PTS raw'[CO Name], CONameFromPTS
 )
 
 RETURN 
 IF(
-    NOT ISBLANK(DivisionDirector),
-    SWITCH(
-        DivisionDirector,
-        "Kwasi Antwi", "RJC1 (Antwi)",
-        "Jimmy Hupalar", "RJC2 (Hupalar)",
-        "Russell Grabill", "RJC3 (Grabill)",
-        "Saul Simmons", "RJC4 (Simmons)"
-    ),
-    SWITCH(
-        TRUE(),
-        CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)], "OIT"), "RJC1 (Antwi)", 
-        CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)], "FORHP") 
-            || CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)], "HAB") 
-            || CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)], "OAT") 
-            || CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)], "BHW") 
-            || CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)], "BPHC") 
-            || CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)], "HSB") 
-            || CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)], "NDHP"), "RJC2 (Hupalar)", 
-        CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)], "MCHB") 
-            || CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)], "OEIA") 
-            || CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)], "OO") 
-            || CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)], "OA") 
-            || CONTAINSSTRING('4CAST raw'[4Cast ID Number (4CAST)], "PRB"), "RJC3 (Grabill)", 
-        BLANK()
-    )
+    NOT ISBLANK(CurrentDirector), 
+    CurrentDirector,
+    DirectorFromPTS
 )
