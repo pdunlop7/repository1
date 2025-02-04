@@ -6,23 +6,24 @@ VAR CONameFromPTS = LOOKUPVALUE(
     'PTS raw'[4CAST ID Number (PTS)], '4CAST raw'[4CAST ID Number (4CAST)]
 )
 
-VAR Hupalar_Team = {"Checchia, Mario (HRSA)", "Hupalar, Jimmy (HRSA)", "Stephan, Anne (HRSA)", "Whitney, Charisse (HRSA)"}
-VAR Antwi_Team = {"Antwi, Kwasi (HRSA)", "Henriquez, Mario (HRSA)", "Grabill, Russell (HRSA)", "Collins, Ronette (HRSA)"}
-VAR Grabill_Team = {"Archibald, David (HRSA)", "Petrone, Stephanie (HRSA)", "Dillon, Gina (HRSA)", "Wesley, Helen (HRSA) [X]", "Nilles, Kevin (HRSA)"}
-VAR Simmons_Team = {"Simmons, Saul (HRSA)"}
-
-VAR DirectorFromAttachment = SWITCH(
-    TRUE(),
-    CONameFromPTS IN Hupalar_Team, "Hupalar, Jimmy (HRSA)",
-    CONameFromPTS IN Antwi_Team, "Antwi, Kwasi (HRSA)",
-    CONameFromPTS IN Grabill_Team, "Grabill, Russell (HRSA)",
-    CONameFromPTS IN Simmons_Team, "Simmons, Saul (HRSA)",
-    BLANK()
-)
+VAR OAMPTeam = 
+    IF(CONTAINSROW(
+        {"Checchia, Mario (HRSA)", "Hupalar, Jimmy (HRSA)", "Stephan, Anne (HRSA)", "Whitney, Charisse (HRSA)"}, 
+        CONameFromPTS), "Hupalar, Jimmy (HRSA)",
+    IF(CONTAINSROW(
+        {"Antwi, Kwasi (HRSA)", "Henriquez, Mario (HRSA)", "Grabill, Russell (HRSA)", "Collins, Ronette (HRSA)"}, 
+        CONameFromPTS), "Antwi, Kwasi (HRSA)",
+    IF(CONTAINSROW(
+        {"Archibald, David (HRSA)", "Petrone, Stephanie (HRSA)", "Dillon, Gina (HRSA)", "Wesley, Helen (HRSA) [X]", "Nilles, Kevin (HRSA)"}, 
+        CONameFromPTS), "Grabill, Russell (HRSA)",
+    IF(CONTAINSROW(
+        {"Simmons, Saul (HRSA)"}, 
+        CONameFromPTS), "Simmons, Saul (HRSA)",
+    BLANK()))))
 
 RETURN 
 IF(
     NOT ISBLANK(CurrentDirector), 
     CurrentDirector,
-    DirectorFromAttachment
+OAMPTeam
 )
