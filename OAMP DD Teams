@@ -1,39 +1,34 @@
 Division Director 2 = 
-VAR CurrentDirector = '4CAST raw'[Division Director]
+IF(NOT(ISBLANK('4CAST raw'[Division Director]),'4CAST raw'[Division Director],
 
-VAR CONameFromPTS = LOOKUPVALUE(
-    'PTS raw'[CO Name], 
-    'PTS raw'[4CAST ID Number (PTS)], '4CAST raw'[4CAST ID Number (4CAST)]
-)
+IF(LOOKUPVALUE('PTS raw'[CO Name],'PTS raw'[4Cast ID Number (PTS)], '4CAST raw'[4Cast ID Number (4CAST)])= "Antwi, Kwasi (HRSA)" ||
+IF(LOOKUPVALUE('PTS raw'[CO Name],'PTS raw'[4Cast ID Number (PTS)], '4CAST raw'[4Cast ID Number (4CAST)])= "Henriquez, Mario (HRSA)
+" ||
+IF(LOOKUPVALUE('PTS raw'[CO Name],'PTS raw'[4Cast ID Number (PTS)], '4CAST raw'[4Cast ID Number (4CAST)])= "Collins, Ronette (HRSA)
+","Antwi, Kwasi (HRSA)",
 
-VAR OAMPTeam = 
-    SWITCH(TRUE(),
-        CONTAINSROW(
-            {"Checchia, Mario (HRSA)", "Hupalar, Jimmy (HRSA)", "Stephan, Anne (HRSA)", "Whitney, Charisse (HRSA)"},
-            CONameFromPTS
-        ), "Hupalar, Jimmy (HRSA)",
 
-        CONTAINSROW(
-            {"Antwi, Kwasi (HRSA)", "Henriquez, Mario (HRSA)", "Grabill, Russell (HRSA)", "Collins, Ronette (HRSA)"},
-            CONameFromPTS
-        ), "Antwi, Kwasi (HRSA)",
+IF(LOOKUPVALUE('PTS raw'[CO Name],'PTS raw'[4Cast ID Number (PTS)], '4CAST raw'[4Cast ID Number (4CAST)])= "Grabill, Russell (HRSA)
+" ||
+IF(LOOKUPVALUE('PTS raw'[CO Name],'PTS raw'[4Cast ID Number (PTS)], '4CAST raw'[4Cast ID Number (4CAST)])= "Archibald, David (HRSA)
+" ||
+IF(LOOKUPVALUE('PTS raw'[CO Name],'PTS raw'[4Cast ID Number (PTS)], '4CAST raw'[4Cast ID Number (4CAST)])= "Petrone, Stephanie (HRSA)
+" ||
+IF(LOOKUPVALUE('PTS raw'[CO Name],'PTS raw'[4Cast ID Number (PTS)], '4CAST raw'[4Cast ID Number (4CAST)])= "Dillon, Gina (HRSA)
+" ||
+IF(LOOKUPVALUE('PTS raw'[CO Name],'PTS raw'[4Cast ID Number (PTS)], '4CAST raw'[4Cast ID Number (4CAST)])= "Wesley, Helen (HRSA) [X]
+" ||
+IF(LOOKUPVALUE('PTS raw'[CO Name],'PTS raw'[4Cast ID Number (PTS)], '4CAST raw'[4Cast ID Number (4CAST)])= "Nilles, Kevin (HRSA)
+", "Grabill, Russell (HRSA)",
 
-        CONTAINSROW(
-            {"Archibald, David (HRSA)", "Petrone, Stephanie (HRSA)", "Dillon, Gina (HRSA)", "Wesley, Helen (HRSA) [X]", "Nilles, Kevin (HRSA)"},
-            CONameFromPTS
-        ), "Grabill, Russell (HRSA)",
+IF(LOOKUPVALUE('PTS raw'[CO Name],'PTS raw'[4Cast ID Number (PTS)], '4CAST raw'[4Cast ID Number (4CAST)])= "Hupalar, Jimmy (HRSA)
+" ||
+IF(LOOKUPVALUE('PTS raw'[CO Name],'PTS raw'[4Cast ID Number (PTS)], '4CAST raw'[4Cast ID Number (4CAST)])= "Checchia, Mario (HRSA)
+" ||
+IF(LOOKUPVALUE('PTS raw'[CO Name],'PTS raw'[4Cast ID Number (PTS)], '4CAST raw'[4Cast ID Number (4CAST)])= "Stephan, Anne (HRSA)
+" ||
+IF(LOOKUPVALUE('PTS raw'[CO Name],'PTS raw'[4Cast ID Number (PTS)], '4CAST raw'[4Cast ID Number (4CAST)])= "Whitney, Charisse (HRSA)
+", "Hupalar, Jimmy (HRSA)",
 
-        CONTAINSROW(
-            {"Simmons, Saul (HRSA)"},
-            CONameFromPTS
-        ), "Simmons, Saul (HRSA)",
-
-        BLANK()
-    )
-
-RETURN 
-IF(
-    NOT ISBLANK(CurrentDirector), 
-    CurrentDirector,
-    OAMPTeam
-)
+IF(LOOKUPVALUE('PTS raw'[CO Name],'PTS raw'[4Cast ID Number (PTS)], '4CAST raw'[4Cast ID Number (4CAST)])= "Simmons, Saul (HRSA)
+", "Simmons, Saul (HRSA)", BLANK()))))))))))))))))
