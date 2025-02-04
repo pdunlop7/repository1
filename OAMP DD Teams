@@ -20,10 +20,10 @@ IF(
         "Dillon, Gina (HRSA)", "Russell Grabill",
         "Wesley, Helen (HRSA) [X]", "Russell Grabill",
         "Nilles, Kevin (HRSA)", "Russell Grabill",
-        "Hupalar, Jimmy (HRSA)", "Hupalar, Jimmy (HRSA",
-        "Checchia, Mario (HRSA)", "Hupalar, Jimmy (HRSA",
-        "Stephan, Anne (HRSA)", "Hupalar, Jimmy (HRSA",
-        "Whitney, Charisse (HRSA)", "Hupalar, Jimmy (HRSA",
+        "Jimmy Hupalar)", "Jimmy Hupalar",
+        "Checchia, Mario (HRSA)", "Jimmy Hupalar",
+        "Stephan, Anne (HRSA)", "Jimmy Hupalar",
+        "Whitney, Charisse (HRSA)", "Jimmy Hupalar",
         "Saul Simmons)", "Saul Simmons",
         BLANK()
     )
