@@ -1,16 +1,17 @@
-Work Days for OAMP to Complete Review = 
-IF(
+Work Days for OAMP to Complete Initial Review = 
+IF(//If the draft package submitted to OAMP date is blank, then the entire formula results blank.
     ISBLANK('PTS raw'[Complete Draft Procurement Package Submitted Date]), 
-    BLANK(),
-    IF(
+    BLANK(),//Draft package submitted date is not blank
+    IF(//If the OAMP Package was rejected, and the rejection took place prior to acceptance, return the difference between submitted and rejected date.
         NOT ISBLANK('PTS raw'[Request COR to fix document issues date]) && 
-        'PTS raw'[Request COR to fix document issues date] < 'PTS raw'[OAMP Accepts Package Date],
+        'PTS raw'[Request COR to fix document issues date] <= 'PTS raw'[Complete Draft Procurement Package Submitted Date],
         NETWORKDAYS('PTS raw'[Complete Draft Procurement Package Submitted Date], 'PTS raw'[Request COR to fix document issues date], 1, Holidays),
-        IF(
+        IF(//If the package was accepted, return the difference between submitted and accepted date.
             ISBLANK('PTS raw'[Request COR to fix document issues date]) && 
             NOT ISBLANK('PTS raw'[OAMP Accepts Package Date]),
             NETWORKDAYS('PTS raw'[Complete Draft Procurement Package Submitted Date], 'PTS raw'[OAMP Accepts Package Date], 1, Holidays),
-            NETWORKDAYS('PTS raw'[Complete Draft Procurement Package Submitted Date], TODAY(), 1, Holidays)
+            //If the package was submitted, but neither accepted or rejected, return the difference between submitted day and last refreshed date.
+            NETWORKDAYS('PTS raw'[Complete Draft Procurement Package Submitted Date], 'Last Refreshed Date'[LastRefreshedDateMeasure], 1, Holidays)
         )
     )
 )
