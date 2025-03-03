@@ -1,0 +1,9 @@
+Pre-Award Timeliness Filter (Text) = 
+//Pre-Award Process In Progress
+IF(NOT('PTS raw'[PTS Status]="Award Issued") && 'PTS raw'[Work Days for OAMP to Award]<='PTS raw'[Baseline days to Award a Contract], "Pre-Award In Progress - Within PALT",
+IF(NOT('PTS raw'[PTS Status]="Award Issued") && 'PTS raw'[Work Days for OAMP to Award]>'PTS raw'[Baseline days to Award a Contract], "Pre-Award In Progress - Exceeded PALT",
+
+//Completed Award
+IF('PTS raw'[PTS Status]="Award Issued" && 'PTS raw'[Work Days for OAMP to Complete Initial Review]<='PTS raw'[Baseline days to Award a Contract], "Award Issued - Within PALT",
+IF('PTS raw'[PTS Status]="Award Issued" && 'PTS raw'[Work Days for OAMP to Complete Initial Review]>'PTS raw'[Baseline days to Award a Contract], "Award Issued - Exceeded PALT",
+BLANK()))))
