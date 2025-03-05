@@ -1,30 +1,29 @@
 Work Days for OAMP to Complete Initial Review = 
 IF(
-   // If the draft package submitted to OAMP date is blank, return blank.
-   ISBLANK('PTS raw'[Complete Draft Procurement Package Submitted Date]),
-   BLANK(),
-   // If the draft package was resubmitted (i.e., submitted date is after request to fix date),
-   // then calculate the difference between submitted and accepted dates.
-   IF(
-       NOT ISBLANK('PTS raw'[Request COR to fix document issues date]) &&
-       'PTS raw'[Complete Draft Procurement Package Submitted Date] > 'PTS raw'[Request COR to fix document issues date] &&
-       NOT ISBLANK('PTS raw'[OAMP Accepts Package Date]),
-       NETWORKDAYS('PTS raw'[Complete Draft Procurement Package Submitted Date], 'PTS raw'[OAMP Accepts Package Date], 1, Holidays),
-       // If the OAMP package was rejected before acceptance, return the difference between submitted and rejected date.
-       IF(
-           NOT ISBLANK('PTS raw'[Request COR to fix document issues date]) &&
-           'PTS raw'[Request COR to fix document issues date] <= 'PTS raw'[Complete Draft Procurement Package Submitted Date],
-           NETWORKDAYS('PTS raw'[Complete Draft Procurement Package Submitted Date], 'PTS raw'[Request COR to fix document issues date], 1, Holidays),
-           // If the package was accepted, return the difference between submitted and accepted date.
-           IF(
-               ISBLANK('PTS raw'[Request COR to fix document issues date]) &&
-               NOT ISBLANK('PTS raw'[OAMP Accepts Package Date]),
-               NETWORKDAYS('PTS raw'[Complete Draft Procurement Package Submitted Date], 'PTS raw'[OAMP Accepts Package Date], 1, Holidays),
-               // If the package was submitted but neither accepted nor rejected,
-               // return the difference between submitted day and last refreshed date.
-               NETWORKDAYS('PTS raw'[Complete Draft Procurement Package Submitted Date], 'Last Refreshed Date'[LastRefreshedDateMeasure], 1, Holidays)
-           )
-       )
-   )
-)
+    ISBLANK('PTS raw'[Complete Draft Procurement Package Submitted Date]),
+    BLANK(), // Case where no submission has occurred
+
+    IF(
+        // Case 3: Package was resubmitted after rejection and accepted
+        NOT ISBLANK('PTS raw'[Request COR to fix document issues date]) &&
+        'PTS raw'[Complete Draft Procurement Package Submitted Date] > 'PTS raw'[Request COR to fix document issues date] &&
+        NOT ISBLANK('PTS raw'[OAMP Accepts Package Date]),
+        NETWORKDAYS('PTS raw'[Complete Draft Procurement Package Submitted Date], 'PTS raw'[OAMP Accepts Package Date], 1, Holidays),
+
+        IF(
+            // Case 2: Package was submitted and then rejected
+            NOT ISBLANK('PTS raw'[Request COR to fix document issues date]) &&
+            'PTS raw'[Complete Draft Procurement Package Submitted Date] <= 'PTS raw'[Request COR to fix document issues date],
+            NETWORKDAYS('PTS raw'[Complete Draft Procurement Package Submitted Date], 'PTS raw'[Request COR to fix document issues date], 1, Holidays),
+
+            IF(
+                // Case 4: Package was submitted and accepted
+                NOT ISBLANK('PTS raw'[OAMP Accepts Package Date]),
+                NETWORKDAYS('PTS raw'[Complete Draft Procurement Package Submitted Date], 'PTS raw'[OAMP Accepts Package Date], 1, Holidays),
+
+                // Case 1: Package was submitted but neither accepted nor rejected
+                NETWORKDAYS('PTS raw'[Complete Draft Procurement Package Submitted Date], 'Last Refreshed Date'[LastRefreshedDateMeasure], 1, Holidays)
+            )
+        )
+    )
 )
