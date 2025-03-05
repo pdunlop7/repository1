@@ -1,4 +1,4 @@
-Work Days for OAMP to Complete Initial Review =
+Work Days for OAMP to Complete Initial Review = 
 IF(
    // If the draft package submitted to OAMP date is blank, return blank.
    ISBLANK('PTS raw'[Complete Draft Procurement Package Submitted Date]),
@@ -26,4 +26,5 @@ IF(
            )
        )
    )
+)
 )
