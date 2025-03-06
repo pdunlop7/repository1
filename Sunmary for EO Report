@@ -1,4 +1,5 @@
 Summary (EO Report) = 
+//Removes PTS Phase 1 ID from the summary
 VAR Pattern = "PTSNEW-" 
 VAR SummaryText = 'PTS Raw'[Summary] 
 VAR StartPos = SEARCH(Pattern, SummaryText, 1, -1) 
