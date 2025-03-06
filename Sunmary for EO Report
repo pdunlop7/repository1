@@ -1,0 +1,18 @@
+Summary (EO Report) = 
+//Removes PTS ID from summary
+VAR Pattern = "PTSNEW-" 
+VAR SummaryText = 'PTS Raw'[Summary] 
+VAR StartPos = SEARCH(Pattern, SummaryText, 1, -1) 
+
+RETURN 
+IF(
+    StartPos = -1, 
+    SummaryText, 
+    TRIM(
+        SUBSTITUTE(
+            SummaryText, 
+            MID(SummaryText, StartPos, 9), 
+            "" -- Removes "PTSNEW-####"
+        )
+    )
+)
