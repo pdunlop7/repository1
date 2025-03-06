@@ -11,7 +11,7 @@ IF(
     TRIM(
         SUBSTITUTE(
             SummaryText, 
-            MID(SummaryText, StartPos, 10),  -- Adjusted to remove "PTSNEW-#### "
+            MID(SummaryText, StartPos, 11),  -- Adjusted to remove "PTSNEW-#### "
             ""
         )
     )
