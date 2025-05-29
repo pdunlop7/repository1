@@ -1,30 +1,34 @@
-Division Director 2 = 
-VAR CurrentDirector = '4CAST raw'[Division Director]
-VAR COName = LOOKUPVALUE(
-    'PTS raw'[CO Name], 
-    'PTS raw'[4Cast ID Number (PTS)], 
-    '4CAST raw'[4Cast ID Number (4CAST)]
-)
-RETURN 
-IF(
-    NOT ISBLANK(CurrentDirector), 
-    CurrentDirector,
-    SWITCH(
-        COName,
-        "Kwasi Antwi)", "Kwasi Antwi",
-        "Henriquez, Mario (HRSA)", "Kwasi Antwi",
-        "Collins, Ronette (HRSA)", "Kwasi Antwi",
-        "Russell Grabill)", "Russell Grabill",
-        "Archibald, David (HRSA)", "Russell Grabill",
-        "Petrone, Stephanie (HRSA)", "Russell Grabill",
-        "Dillon, Gina (HRSA)", "Russell Grabill",
-        "Wesley, Helen (HRSA) [X]", "Russell Grabill",
-        "Nilles, Kevin (HRSA)", "Russell Grabill",
-        "Jimmy Hupalar)", "Jimmy Hupalar",
-        "Checchia, Mario (HRSA)", "Jimmy Hupalar",
-        "Stephan, Anne (HRSA)", "Jimmy Hupalar",
-        "Whitney, Charisse (HRSA)", "Jimmy Hupalar",
-        "Simmons, Saul (HRSA)", "Saul Simmons",
-        BLANK()
-    )
-)
+OAMP Teams = 
+IF('PTS raw'[Division Director]= "Kwasi Antwi", "RJC1 (Antwi)",
+IF('PTS raw'[Division Director]= "Jimmy Hupalar", "RJC2 (Hupalar)",
+IF('PTS raw'[Division Director]= "Robert Burdette", "RJC3 (Burdette)",
+IF('PTS raw'[Division Director]= "Saul Simmons", "RJC4 (Simmons)",
+
+IF(LOOKUPVALUE('4CAST raw'[Division Director],'4CAST raw'[4Cast ID Number (4CAST)],'PTS raw'[4Cast ID Number (PTS)])= "Kwasi Antwi", "RJC1 (Antwi)",
+IF(LOOKUPVALUE('4CAST raw'[Division Director],'4CAST raw'[4Cast ID Number (4CAST)],'PTS raw'[4Cast ID Number (PTS)])= "Jimmy Hupalar", "RJC2 (Hupalar)",
+IF(LOOKUPVALUE('4CAST raw'[Division Director],'4CAST raw'[4Cast ID Number (4CAST)],'PTS raw'[4Cast ID Number (PTS)])= "Robert Burdette", "RJC3 (Burdette)",
+IF(LOOKUPVALUE('4CAST raw'[Division Director],'4CAST raw'[4Cast ID Number (4CAST)],'PTS raw'[4Cast ID Number (PTS)])= "Saul Simmons", "RJC4 (Simmons)",
+
+IF(CONTAINSSTRING('PTS raw'[Office/Bureau 2],"OIT") || CONTAINSSTRING('PTS raw'[4Cast ID Number (PTS)],"OIT"),"OIT - Unassigned",
+IF('PTS raw'[Office/Bureau 2]="FORHP"||
+'PTS raw'[Office/Bureau 2]="HAB"||
+'PTS raw'[Office/Bureau 2]="OAT"||
+'PTS raw'[Office/Bureau 2]="BHW"||
+'PTS raw'[Office/Bureau 2]="BPHC"||
+'PTS raw'[Office/Bureau 2]="HSB"||
+'PTS raw'[Office/Bureau 2]="NHDP","RJC2 (Hupalar)",
+
+IF('PTS raw'[Office/Bureau 2]="MCHB"||
+'PTS raw'[Office/Bureau 2]="OFAM"||
+'PTS raw'[Office/Bureau 2]="OIEA"||
+'PTS raw'[Office/Bureau 2]="OO"||
+'PTS raw'[Office/Bureau 2]="OA"||
+'PTS raw'[Office/Bureau 2]="IOA"||
+'PTS raw'[Office/Bureau 2]="OC"||
+'PTS raw'[Office/Bureau 2]="OCRDI"||
+'PTS raw'[Office/Bureau 2]="OL"||
+'PTS raw'[Office/Bureau 2]="OPAE"||
+'PTS raw'[Office/Bureau 2]="OSHI"||
+'PTS raw'[Office/Bureau 2]="OWH"||
+'PTS raw'[Office/Bureau 2]="PRB","RJC3 (Archibald/Burdette)",'PTS raw'[Assignee]
+)))))))))))
